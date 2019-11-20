@@ -77,7 +77,7 @@ public class IngameController{
     public void initializeConnection(){
         String hostName = "127.0.0.1";
         int portNr = 13377;
-        ClientConnection clientConnection = new ClientConnection(hostName, portNr);
+        ClientConnection clientConnection = new ClientConnection(hostName, portNr, this);
         clientConnection.sendObjectToServer(new ClientRequest(ClientRequest.TYPE.SEND_USERNAME, "Username"));
         System.out.println("Object sent to server");
         //FIX ABILITY TO PASS USERNAME FROM LOGIN WINDOW TO IN-GAME WINDOW

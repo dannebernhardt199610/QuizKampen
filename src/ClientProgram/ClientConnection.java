@@ -5,6 +5,9 @@ import ClientProgram.GUI.LoginWindowController;
 import ClientProgram.GUI.WinnerLobbyController;
 import Model.Question;
 import ServerUtilities.ServerResponse;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -18,9 +21,15 @@ public class ClientConnection implements Runnable{
     IngameController ingameController;
     WinnerLobbyController winnerLobbyController;
 
-    public ClientConnection (String hostName, int portNr){
+    public ClientConnection (String hostName, int portNr, IngameController ingameController){
+        this.ingameController = ingameController;
+
         System.out.println("ClientConnection created");
-        constructControllers();
+        try {
+            constructControllers();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         try {
             this.socket = new Socket(hostName, portNr);
@@ -32,7 +41,11 @@ public class ClientConnection implements Runnable{
 
     }
 
-    public void constructControllers(){
+    public void constructControllers() throws IOException {
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DrawArea.fxml"));
+//        loader.load();
+//        loginWindowController = loader.getController();
+        System.out.println(loginWindowController);
         //loginWindowController = new LoginWindowController();
         //ingameController = new IngameController();
         //winnerLobbyController = new WinnerLobbyController();
@@ -84,15 +97,16 @@ public class ClientConnection implements Runnable{
         else if (objectFromServer instanceof Question){
             System.out.println("Object received as Question");
             Question question = (Question) objectFromServer;
-            //ingameController.questionArea.setText(question.getQuestion());
 
-            String[] answers = question.getAnswers();
-//            ingameController.answer1.setText(answers[0]);
-//            ingameController.answer2.setText(answers[1]);
-//            ingameController.answer3.setText(answers[2]);
-//            ingameController.answer4.setText(answers[3]);
-
-
+            //Denna lambda Platform.runLater gör att vi inte bråkar med GUI-thread så synkar det snyggt
+            Platform.runLater(() -> {
+                ingameController.questionArea.setText(question.getQuestion());
+                String[] answers = question.getAnswers();
+                ingameController.answer1.setText(answers[0]);
+                ingameController.answer2.setText(answers[1]);
+                ingameController.answer3.setText(answers[2]);
+                ingameController.answer4.setText(answers[3]);
+            });
         }
 
         //Här gör vi saker med objektet vi tagit emot
