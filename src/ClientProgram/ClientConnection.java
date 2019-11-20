@@ -14,9 +14,9 @@ import java.net.Socket;
 public class ClientConnection implements Runnable{
 
     Socket socket;
-    //LoginWindowController loginWindowController;
-    //IngameController ingameController;
-    //WinnerLobbyController winnerLobbyController;
+    LoginWindowController loginWindowController;
+    IngameController ingameController;
+    WinnerLobbyController winnerLobbyController;
 
     public ClientConnection (String hostName, int portNr){
         System.out.println("ClientConnection created");
@@ -27,7 +27,8 @@ public class ClientConnection implements Runnable{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        new Thread().start();
+        new Thread(this).start();
+        System.out.println("Thread started");
 
     }
 
@@ -41,6 +42,7 @@ public class ClientConnection implements Runnable{
 
     @Override
     public void run() {
+        System.out.println("Running...");
         receiveObjectFromServer();
     }
 
@@ -49,7 +51,9 @@ public class ClientConnection implements Runnable{
             try {
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
                 Object objectFromServer;
+                System.out.println("Listening");
                 while ((objectFromServer = in.readObject()) != null){
+                    System.out.println("Object received for sorting");
                     processObjectFromServer(objectFromServer);
                 }
             } catch (IOException | ClassNotFoundException e) {
@@ -63,6 +67,7 @@ public class ClientConnection implements Runnable{
         try {
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             out.writeObject(objectToServer);
+            out.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -77,6 +82,7 @@ public class ClientConnection implements Runnable{
             }
         }
         else if (objectFromServer instanceof Question){
+            System.out.println("Object received as Question");
             Question question = (Question) objectFromServer;
             //ingameController.questionArea.setText(question.getQuestion());
 

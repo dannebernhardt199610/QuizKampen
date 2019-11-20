@@ -3,7 +3,7 @@ package ServerProgram;
 import Model.Player;
 import ServerUtilities.ClientRequest;
 import Model.Question;
-import Model.Score;
+import Model.ScoreReport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +43,7 @@ public class Game {
 
             case SEND_USERNAME:
                 System.out.println("SEND_USERNAME received");
+                System.out.println("Username: " + objectFromClient.message);
                 System.out.println("Number or players:" + playerServers.size());
                 Player player = playerServer.getPlayer();
                 player.setName(objectFromClient.message);
@@ -50,17 +51,18 @@ public class Game {
                 if(playerServers.size() == nrOfPlayers){
                     System.out.println("All players connected, ready to send");
                     //JUST A TEST! GET FROM DATABASE
+                    System.out.println(currentQuestion);
 
                     sendToAllPlayers(currentQuestion);
                 }
                 break;
             case REQUEST_SCORE:
                 //This sends a list with all the players scores to the playerServer that requested it
-                List<Score> playerScores = new ArrayList<>();
+                List<ScoreReport> playerScoreReports = new ArrayList<>();
                 for (PlayerServer server: playerServers) {
-                    playerScores.add(server.score);
+                    playerScoreReports.add(server.scoreReport);
                 }
-                playerServer.sendObjectToClient(playerScores);
+                playerServer.sendObjectToClient(playerScoreReports);
                 break;
             case SUBMIT_ANSWER:
                 //Check the submitted answer and update score if correct
@@ -81,6 +83,7 @@ public class Game {
         for (PlayerServer playerServer: playerServers) {
             playerServer.sendObjectToClient(objectToClient);
         }
+        System.out.println("Objects should now have been sent");
     }
 
 

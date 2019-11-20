@@ -2,7 +2,7 @@ package Model;
 
 import java.io.Serializable;
 
-public class Score implements Serializable {
+public class ScoreReport implements Serializable {
 
     static final long serialVersionUID = 1L;
 
@@ -16,7 +16,7 @@ public class Score implements Serializable {
     private int[] roundScores;
 
 
-    public Score(int numberOfRounds) {
+    public ScoreReport(int numberOfRounds) {
         this.roundScores = new int[numberOfRounds];
     }
 

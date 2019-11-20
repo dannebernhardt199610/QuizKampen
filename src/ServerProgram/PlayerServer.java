@@ -1,7 +1,7 @@
 package ServerProgram;
 
 import Model.Player;
-import Model.Score;
+import Model.ScoreReport;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -13,7 +13,7 @@ public class PlayerServer implements Runnable{
     Player player;
     private final Socket socket;
     Game game;
-    Score score;
+    ScoreReport scoreReport;
 
     public PlayerServer(Socket socket, Game game) {
         this.socket = socket;
@@ -22,7 +22,7 @@ public class PlayerServer implements Runnable{
         new Thread(this).start();
 
         int numberOfRounds = 4; //CHANGE TO READ FROM PROPERTIES INSTEAD!!
-        this.score = new Score(numberOfRounds);
+        this.scoreReport = new ScoreReport(numberOfRounds);
         player = new Player();
     }
 
@@ -50,6 +50,7 @@ public class PlayerServer implements Runnable{
         try {
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             out.writeObject(objectToClient);
+            out.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }

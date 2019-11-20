@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class IngameController extends LoginWindowController implements Initializable {
+public class IngameController{
     int counter = 0;
     String input = "";
 
@@ -78,7 +78,9 @@ public class IngameController extends LoginWindowController implements Initializ
         String hostName = "127.0.0.1";
         int portNr = 13377;
         ClientConnection clientConnection = new ClientConnection(hostName, portNr);
-        clientConnection.sendObjectToServer(new ClientRequest(ClientRequest.TYPE.SEND_USERNAME,username.getText()));
+        clientConnection.sendObjectToServer(new ClientRequest(ClientRequest.TYPE.SEND_USERNAME, "Username"));
+        System.out.println("Object sent to server");
+        //FIX ABILITY TO PASS USERNAME FROM LOGIN WINDOW TO IN-GAME WINDOW
     }
 
 
@@ -135,10 +137,9 @@ public class IngameController extends LoginWindowController implements Initializ
 
     }
 
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        //initializeConnection();
+    public void initialize() {
+        System.out.println("Running initialize()");
+        initializeConnection();
     }
 }
 
