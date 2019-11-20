@@ -12,7 +12,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("loginWindow.fxml"));
-            loader.setController(new LoginWindowController());
+            //loader.setController(new LoginWindowController());
             Pane root = loader.load();
             Scene scene = new Scene(root, 800, 800);
             primaryStage.setScene(scene);
