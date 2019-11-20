@@ -1,6 +1,7 @@
-package sample;
+package ClientProgram.GUI;
 
-import com.sun.glass.events.MouseEvent;
+import ClientProgram.ClientConnection;
+import ServerUtilities.ClientRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,14 +11,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class LoginWindowController implements Initializable {
 
     @FXML
     private VBox firstwindow;
@@ -60,6 +59,7 @@ public class Controller implements Initializable {
 
     @FXML
     void ConnecttoServer(ActionEvent event) throws InterruptedException {
+
         label.setVisible(true);
         progress.setVisible(true);
         label.setText("Connected as " + username.getText());
@@ -71,14 +71,15 @@ public class Controller implements Initializable {
     @FXML
     void listen(ActionEvent event) throws Exception {
 
-            Parent tableViewParent = FXMLLoader.load(getClass().getResource("ingameeea.fxml"));
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("ingameeea.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(tableViewScene);
         window.show();
 
-        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 

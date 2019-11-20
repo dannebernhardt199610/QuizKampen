@@ -1,4 +1,4 @@
-package sample;
+package ClientProgram.GUI;
 
 public class ChooseSubject {
 

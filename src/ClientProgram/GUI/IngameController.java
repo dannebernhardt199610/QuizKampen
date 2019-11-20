@@ -1,5 +1,7 @@
-package sample;
+package ClientProgram.GUI;
 
+import ClientProgram.ClientConnection;
+import ServerUtilities.ClientRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +21,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class IngameController extends Controller implements Initializable {
+public class IngameController extends LoginWindowController implements Initializable {
     int counter = 0;
     String input = "";
 
@@ -30,16 +32,16 @@ public class IngameController extends Controller implements Initializable {
 
 
     @FXML
-    private Button answer1;
+    public Button answer1;
 
     @FXML
-    private Button answer2;
+    public Button answer2;
 
     @FXML
-    private Button answer3;
+    public Button answer3;
 
     @FXML
-    private Button answer4;
+    public Button answer4;
 
     @FXML
     private Label pointslabel;
@@ -48,7 +50,7 @@ public class IngameController extends Controller implements Initializable {
     private Label labelpoints;
 
     @FXML
-    private TextArea textareaa;
+    public TextArea questionArea;
 
     @FXML
     private ImageView imageView;
@@ -71,6 +73,13 @@ public class IngameController extends Controller implements Initializable {
 
     @FXML
     private TextField msgTextField;
+
+    public void initializeConnection(){
+        String hostName = "127.0.0.1";
+        int portNr = 13377;
+        ClientConnection clientConnection = new ClientConnection(hostName, portNr);
+        clientConnection.sendObjectToServer(new ClientRequest(ClientRequest.TYPE.SEND_USERNAME,username.getText()));
+    }
 
 
     @FXML
@@ -129,7 +138,7 @@ public class IngameController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        //initializeConnection();
     }
 }
 
