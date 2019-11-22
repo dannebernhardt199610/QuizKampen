@@ -15,16 +15,18 @@ public class LoginWindowController {
     @FXML
     private VBox firstwindow;
 
-    public TextField getUsername() {
-        return username;
-    }
-
-    public void setUsername(TextField username) {
-        this.username = username;
-    }
 
     @FXML
-    public TextField username;
+    public TextField usernameField;
+
+    public TextField getUsernameField() {
+        return usernameField;
+    }
+
+    public void setUsernameField(TextField usernameField) {
+        this.usernameField = usernameField;
+    }
+
 
     @FXML
     private Button button1;
@@ -52,22 +54,33 @@ public class LoginWindowController {
     }
 
     @FXML
-    void ConnecttoServer(ActionEvent event) throws InterruptedException {
+    void connectToServer(ActionEvent event) throws InterruptedException {
 
         label.setVisible(true);
         progress.setVisible(true);
-        label.setText("Connected as " + username.getText());
+        label.setText("Connected as " + usernameField.getText());
 
         Thread.sleep(2000);
         b1.setVisible(true);
     }
 
     @FXML
-    void listen(ActionEvent event) throws Exception {
+    void changeSceneToIngameScene(ActionEvent event) throws Exception {
+        //Vi måste kanske se till att man inte kan ändra användarnamn efter man uppkopplat, och att uppkopplingen faktiskt sker vid "connectToServer"
 
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("ingameeea.fxml"));
+        //Ska vi byta några variabel-namn kanske som tableViewParent till ingameParent exempelvis?
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("ingameeea.fxml"));
+        Parent tableViewParent = loader.load();
+
         Scene tableViewScene = new Scene(tableViewParent);
 
+        //Access the controller and initialize username in that controller
+        IngameController ingameController = loader.getController();
+        ingameController.initializeConnection(usernameField.getText());
+
+
+        //This gets the stage information
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(tableViewScene);
         window.show();

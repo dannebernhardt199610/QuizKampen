@@ -25,7 +25,7 @@ public class IngameController{
     int counter = 0;
     String input = "";
 
-
+    ClientConnection clientConnection;
 
     @FXML
     private AnchorPane question;
@@ -66,19 +66,21 @@ public class IngameController{
     private Pane chatpane;
 
     @FXML
-    private TextArea chatWindow;
+    public TextArea chatWindow;
 
     @FXML
-    private Button sendmsgButton;
+    public Button sendmsgButton;
 
     @FXML
-    private TextField msgTextField;
+    public TextField msgTextField;
 
-    public void initializeConnection(){
+
+    public void initializeConnection(String username){
         String hostName = "127.0.0.1";
         int portNr = 13377;
-        ClientConnection clientConnection = new ClientConnection(hostName, portNr, this);
-        clientConnection.sendObjectToServer(new ClientRequest(ClientRequest.TYPE.SEND_USERNAME, "Username"));
+        this.clientConnection = new ClientConnection(hostName, portNr, this);
+        System.out.println("Username = " + username);
+        clientConnection.sendObjectToServer(new ClientRequest(ClientRequest.TYPE.SEND_USERNAME, username));
         System.out.println("Object sent to server");
         //FIX ABILITY TO PASS USERNAME FROM LOGIN WINDOW TO IN-GAME WINDOW
     }
@@ -123,11 +125,17 @@ public class IngameController{
 
     @FXML
     void sendMsg(ActionEvent event) {
-        input=input+ msgTextField.getText();
+            String messageToServer;
+            if (!msgTextField.getText().isEmpty()) {
+                messageToServer = msgTextField.getText();
+                msgTextField.setText("");
 
-        chatWindow.setText("username:" + " " + input);
+                chatWindow.appendText("[Du] " + messageToServer + "\n");
+                ClientRequest messageRequest = new ClientRequest(ClientRequest.TYPE.MESSAGE_TO_ALL, messageToServer);
+                clientConnection.sendObjectToServer(messageRequest);
+            }
+        }
 
-    }
     @FXML
     void openchatWindow(ActionEvent event) {
         chatpane.setVisible(true);
@@ -138,8 +146,7 @@ public class IngameController{
     }
 
     public void initialize() {
-        System.out.println("Running initialize()");
-        initializeConnection();
+        //If we want to do stuff right after the scene is loaded
     }
 }
 

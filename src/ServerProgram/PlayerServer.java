@@ -12,6 +12,7 @@ public class PlayerServer implements Runnable{
 
     Player player;
     private final Socket socket;
+    ObjectOutputStream out;
     Game game;
     ScoreReport scoreReport;
 
@@ -19,6 +20,10 @@ public class PlayerServer implements Runnable{
         this.socket = socket;
         this.game = game;
         game.addPlayerToList(this);
+
+        try { out = new ObjectOutputStream(socket.getOutputStream());
+        } catch (IOException e) { e.printStackTrace(); }
+
         new Thread(this).start();
 
         int numberOfRounds = 4; //CHANGE TO READ FROM PROPERTIES INSTEAD!!
@@ -48,7 +53,6 @@ public class PlayerServer implements Runnable{
 
     public void sendObjectToClient(Object objectToClient){
         try {
-            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             out.writeObject(objectToClient);
             out.flush();
         } catch (IOException e) {

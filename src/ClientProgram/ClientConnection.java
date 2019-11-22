@@ -17,6 +17,7 @@ import java.net.Socket;
 public class ClientConnection implements Runnable{
 
     Socket socket;
+    ObjectOutputStream out;
     LoginWindowController loginWindowController;
     IngameController ingameController;
     WinnerLobbyController winnerLobbyController;
@@ -26,18 +27,14 @@ public class ClientConnection implements Runnable{
 
         System.out.println("ClientConnection created");
         try {
+            this.socket = new Socket(hostName, portNr);
+            out = new ObjectOutputStream(socket.getOutputStream());
             constructControllers();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        try {
-            this.socket = new Socket(hostName, portNr);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         new Thread(this).start();
-        System.out.println("Thread started");
 
     }
 
@@ -45,7 +42,7 @@ public class ClientConnection implements Runnable{
 //        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DrawArea.fxml"));
 //        loader.load();
 //        loginWindowController = loader.getController();
-        System.out.println(loginWindowController);
+        //System.out.println(loginWindowController);
         //loginWindowController = new LoginWindowController();
         //ingameController = new IngameController();
         //winnerLobbyController = new WinnerLobbyController();
@@ -64,7 +61,6 @@ public class ClientConnection implements Runnable{
             try {
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
                 Object objectFromServer;
-                System.out.println("Listening");
                 while ((objectFromServer = in.readObject()) != null){
                     System.out.println("Object received for sorting");
                     processObjectFromServer(objectFromServer);
@@ -78,7 +74,6 @@ public class ClientConnection implements Runnable{
 
     public void sendObjectToServer(Object objectToServer){
         try {
-            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             out.writeObject(objectToServer);
             out.flush();
         } catch (IOException e) {
@@ -92,6 +87,8 @@ public class ClientConnection implements Runnable{
 
             switch (((ServerResponse) objectFromServer).type){
                 //Hantera Server Responses
+                case MESSAGE_FROM_CLIENT:
+                    ingameController.chatWindow.appendText(((ServerResponse) objectFromServer).message + "\n");
             }
         }
         else if (objectFromServer instanceof Question){
@@ -108,12 +105,6 @@ public class ClientConnection implements Runnable{
                 ingameController.answer4.setText(answers[3]);
             });
         }
-
-        //Här gör vi saker med objektet vi tagit emot
-
-
-        //exempel på att skicka objekt till servern
-        //sendObjectToServer(object);
 
         //Det går jättebra att skicka olika typer av object, måste inte vara klassat som Object
     }

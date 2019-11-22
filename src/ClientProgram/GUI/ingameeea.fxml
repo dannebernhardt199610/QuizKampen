@@ -15,7 +15,7 @@
    <children>
       <AnchorPane fx:id="question" prefHeight="800.0" prefWidth="800.0" style="-fx-background-color: #E6E6FA;">
          <children>
-            <TextField fx:id="msgTextField" layoutX="415.0" layoutY="775.0" prefHeight="72.0" prefWidth="300.0" text="msg">
+            <TextField fx:id="msgTextField" layoutX="415.0" layoutY="775.0" onAction="#sendMsg" prefHeight="72.0" prefWidth="300.0" text="msg">
                <effect>
                   <InnerShadow />
                </effect>

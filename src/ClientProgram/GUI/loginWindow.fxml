@@ -21,7 +21,7 @@
     <children>
         <AnchorPane accessibleRole="TEXT_AREA" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" style="-fx-background-color: #7FDBFF;">
             <children>
-                <TextField fx:id="username" layoutX="-1.0" layoutY="380.0" prefHeight="71.0" prefWidth="602.0" promptText="USERNAME:">
+                <TextField fx:id="usernameField" layoutX="-1.0" layoutY="380.0" prefHeight="71.0" prefWidth="602.0" promptText="USERNAME:">
                     <font>
                         <Font name="System Bold" size="27.0" />
                     </font>
@@ -52,7 +52,7 @@
                <cursor>
                   <Cursor fx:constant="WAIT" />
                </cursor></Label>
-            <Button fx:id="b1" layoutY="729.0" mnemonicParsing="false" onAction="#listen" prefHeight="71.0" prefWidth="800.0" style="-fx-background-color: WHITE;" text="START" visible="false">
+            <Button fx:id="b1" layoutY="729.0" mnemonicParsing="false" onAction="#changeSceneToIngameScene" prefHeight="71.0" prefWidth="800.0" style="-fx-background-color: WHITE;" text="START" visible="false">
                <font>
                   <Font name="System Bold" size="33.0" />
                </font>
@@ -72,7 +72,7 @@
                   <Font name="Agency FB Bold" size="25.0" />
                </font>
             </Label>
-            <Button fx:id="ConnectButton" layoutX="441.0" layoutY="451.0" mnemonicParsing="false" onAction="#ConnecttoServer" prefHeight="36.0" prefWidth="161.0" style="-fx-background-color: #7FDBFF;" text="Connect">
+            <Button fx:id="ConnectButton" layoutX="441.0" layoutY="451.0" mnemonicParsing="false" onAction="#connectToServer" prefHeight="36.0" prefWidth="161.0" style="-fx-background-color: #7FDBFF;" text="Connect">
                <effect>
                   <Reflection>
                      <input>

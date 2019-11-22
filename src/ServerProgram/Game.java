@@ -4,6 +4,7 @@ import Model.Player;
 import ServerUtilities.ClientRequest;
 import Model.Question;
 import Model.ScoreReport;
+import ServerUtilities.ServerResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,13 +40,12 @@ public class Game {
 
     private void processRequest(PlayerServer playerServer, ClientRequest objectFromClient) {
 
-        switch (objectFromClient.type) {
+        Player player = playerServer.getPlayer();
 
+        switch (objectFromClient.type) {
             case SEND_USERNAME:
-                System.out.println("SEND_USERNAME received");
                 System.out.println("Username: " + objectFromClient.message);
                 System.out.println("Number or players:" + playerServers.size());
-                Player player = playerServer.getPlayer();
                 player.setName(objectFromClient.message);
 
                 if(playerServers.size() == nrOfPlayers){
@@ -70,8 +70,17 @@ public class Game {
                 //If all players have answered, move to the next question and send that question to all players
                 break;
             case MESSAGE_TO_ALL:
+                System.out.println("Message to all received");
+                System.out.println("Message: " + objectFromClient.message);
                 //Send chat message to all players
-                sendToAllPlayers(objectFromClient.message);
+                ServerResponse serverResponse = new ServerResponse(ServerResponse.TYPE.MESSAGE_FROM_CLIENT,
+                                                "[" + player.getName() + "] " + objectFromClient.message);
+                for (PlayerServer pServer: playerServers) {
+                    if(pServer != playerServer){
+                        pServer.sendObjectToClient(serverResponse);
+                    }
+                }
+
                 break;
             case VERIFY_USERNAME:
                 //Check if username already exists. Return ServerResponse object
@@ -83,7 +92,7 @@ public class Game {
         for (PlayerServer playerServer: playerServers) {
             playerServer.sendObjectToClient(objectToClient);
         }
-        System.out.println("Objects should now have been sent");
+        System.out.println("Object has now been sent to all clients");
     }
 
 

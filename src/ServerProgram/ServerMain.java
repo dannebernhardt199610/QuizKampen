@@ -34,7 +34,7 @@ public class ServerMain implements Runnable {
                 for (int i = 0; i < playersPerGame; i++) {
                     Socket socket = serverSocket.accept();
                     new PlayerServer(socket, game);
-                    System.out.println("Player " + i + "Connected");
+                    System.out.println("Player " + i + " Connected");
                 }
             }
 
