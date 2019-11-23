@@ -4,10 +4,7 @@ import ClientProgram.ClientConnection;
 import ServerUtilities.ClientRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,9 +14,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class IngameController{
     int counter = 0;
@@ -88,11 +82,10 @@ public class IngameController{
 
     @FXML
     void continuetoWinninglobby(ActionEvent event) throws Exception{
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("WinnerLobby.fxml"));
-        Scene tableViewScene = new Scene(tableViewParent);
+        Scene winnerLobbyScene = new Scene(GUI_Control.getWinnerLobbyParent());
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(tableViewScene);
+        window.setScene(winnerLobbyScene);
         window.show();
 
 

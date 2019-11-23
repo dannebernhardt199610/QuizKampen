@@ -2,9 +2,7 @@ package ClientProgram.GUI;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -69,20 +67,22 @@ public class LoginWindowController {
         //Vi måste kanske se till att man inte kan ändra användarnamn efter man uppkopplat, och att uppkopplingen faktiskt sker vid "connectToServer"
 
         //Ska vi byta några variabel-namn kanske som tableViewParent till ingameParent exempelvis?
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("ingameeea.fxml"));
-        Parent tableViewParent = loader.load();
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(getClass().getResource("ingameeea.fxml"));
+//        Parent tableViewParent = loader.load();
 
-        Scene tableViewScene = new Scene(tableViewParent);
+
+        Scene ingameScene = new Scene(GUI_Control.getIngameParent());
 
         //Access the controller and initialize username in that controller
-        IngameController ingameController = loader.getController();
-        ingameController.initializeConnection(usernameField.getText());
+//        IngameController ingameController = loader.getController();
+//        ingameController.initializeConnection(usernameField.getText());
+        GUI_Control.getIngameController().initializeConnection(usernameField.getText());
 
 
         //This gets the stage information
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(tableViewScene);
+        window.setScene(ingameScene);
         window.show();
 
     }
