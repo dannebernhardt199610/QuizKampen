@@ -8,12 +8,15 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    public static LoginWindowController loginWindowController;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("loginWindow.fxml"));
-            //loader.setController(new LoginWindowController());
             Pane root = loader.load();
+            loginWindowController = loader.getController();
+
             Scene scene = new Scene(root, 800, 800);
             primaryStage.setScene(scene);
             primaryStage.show();

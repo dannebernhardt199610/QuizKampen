@@ -2,6 +2,7 @@ package ClientProgram;
 
 import ClientProgram.GUI.IngameController;
 import ClientProgram.GUI.LoginWindowController;
+import ClientProgram.GUI.Main;
 import ClientProgram.GUI.WinnerLobbyController;
 import Model.Question;
 import ServerUtilities.ServerResponse;
@@ -22,14 +23,12 @@ public class ClientConnection implements Runnable{
     IngameController ingameController;
     WinnerLobbyController winnerLobbyController;
 
-    public ClientConnection (String hostName, int portNr, IngameController ingameController){
-        this.ingameController = ingameController;
-
+    public ClientConnection (String hostName, int portNr){
         System.out.println("ClientConnection created");
         try {
             this.socket = new Socket(hostName, portNr);
             out = new ObjectOutputStream(socket.getOutputStream());
-            constructControllers();
+            loadControllers();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -38,14 +37,21 @@ public class ClientConnection implements Runnable{
 
     }
 
-    public void constructControllers() throws IOException {
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DrawArea.fxml"));
-//        loader.load();
-//        loginWindowController = loader.getController();
-        //System.out.println(loginWindowController);
-        //loginWindowController = new LoginWindowController();
-        //ingameController = new IngameController();
-        //winnerLobbyController = new WinnerLobbyController();
+    public void loadControllers() throws IOException {
+        FXMLLoader loader1 = new FXMLLoader();
+        loader1.setLocation(Main.class.getResource("loginWindow.fxml"));
+        Parent root1 = loader1.load();
+        this.loginWindowController = loader1.getController();
+
+        FXMLLoader loader2 = new FXMLLoader();
+        loader2.setLocation(Main.class.getResource("ingameeea.fxml"));
+        Parent root2 = loader2.load();
+        this.ingameController = loader2.getController();
+
+        FXMLLoader loader3 = new FXMLLoader();
+        loader3.setLocation(Main.class.getResource("WinnerLobby.fxml"));
+        Parent root3 = loader3.load();
+        this.winnerLobbyController = loader3.getController();
     }
 
 
@@ -82,7 +88,6 @@ public class ClientConnection implements Runnable{
     }
 
     private void processObjectFromServer(Object objectFromServer){
-
         if(objectFromServer instanceof ServerResponse){
 
             switch (((ServerResponse) objectFromServer).type){
@@ -94,6 +99,8 @@ public class ClientConnection implements Runnable{
         else if (objectFromServer instanceof Question){
             System.out.println("Object received as Question");
             Question question = (Question) objectFromServer;
+
+            System.out.println(question.getQuestion());
 
             //Denna lambda Platform.runLater gör att vi inte bråkar med GUI-thread så synkar det snyggt
             Platform.runLater(() -> {
