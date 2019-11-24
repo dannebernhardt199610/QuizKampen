@@ -1,5 +1,7 @@
 package ClientProgram.GUI;
 
+import ClientProgram.ClientConnection;
+import ServerUtilities.ClientRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -7,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import static ClientProgram.GUI.Main.clientConnection;
 
 public class LoginWindowController {
 
@@ -53,37 +57,33 @@ public class LoginWindowController {
 
     @FXML
     void connectToServer(ActionEvent event) throws InterruptedException {
+        initializeConnection(usernameField.getText());
 
         label.setVisible(true);
         progress.setVisible(true);
         label.setText("Connected as " + usernameField.getText());
 
-        Thread.sleep(2000);
+        //Thread.sleep(2000);
         b1.setVisible(true);
     }
 
     @FXML
     void changeSceneToIngameScene(ActionEvent event) throws Exception {
-        //Vi måste kanske se till att man inte kan ändra användarnamn efter man uppkopplat, och att uppkopplingen faktiskt sker vid "connectToServer"
-
-        //Ska vi byta några variabel-namn kanske som tableViewParent till ingameParent exempelvis?
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(getClass().getResource("ingameeea.fxml"));
-//        Parent tableViewParent = loader.load();
 
 
-        Scene ingameScene = new Scene(GUI_Control.getIngameParent());
+        //This changes scene to the ingameScene
+        GUI_Control.changeScene(GUI_Control.getIngameScene());
+    }
 
-        //Access the controller and initialize username in that controller
-//        IngameController ingameController = loader.getController();
-//        ingameController.initializeConnection(usernameField.getText());
-        GUI_Control.getIngameController().initializeConnection(usernameField.getText());
+    public void initializeConnection(String username){
+        //Move connection to connect button!!
+        String hostName = "127.0.0.1";
+        int portNr = 13377;
 
-
-        //This gets the stage information
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(ingameScene);
-        window.show();
-
+        //Static import of Main.clientConnection so we can access it from anywhere
+        clientConnection = new ClientConnection(hostName, portNr);
+        System.out.println("Username = " + username);
+        clientConnection.sendObjectToServer(new ClientRequest(ClientRequest.TYPE.SEND_USERNAME, username));
+        System.out.println("Object sent to server");
     }
 }

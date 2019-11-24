@@ -69,24 +69,9 @@ public class IngameController{
     public TextField msgTextField;
 
 
-    public void initializeConnection(String username){
-        //Move connection to connect button!!
-        String hostName = "127.0.0.1";
-        int portNr = 13377;
-        this.clientConnection = new ClientConnection(hostName, portNr);
-        System.out.println("Username = " + username);
-        clientConnection.sendObjectToServer(new ClientRequest(ClientRequest.TYPE.SEND_USERNAME, username));
-        System.out.println("Object sent to server");
-    }
-
-
     @FXML
     void continuetoWinninglobby(ActionEvent event) throws Exception{
-        Scene winnerLobbyScene = new Scene(GUI_Control.getWinnerLobbyParent());
-
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(winnerLobbyScene);
-        window.show();
+        GUI_Control.changeScene(GUI_Control.getWinnerLobbyScene());
 
 
     }

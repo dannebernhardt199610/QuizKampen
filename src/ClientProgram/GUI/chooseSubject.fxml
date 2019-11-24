@@ -5,7 +5,7 @@
 <?import javafx.scene.shape.Line?>
 
 
-<AnchorPane prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientProgram.GUI.ChooseSubject">
+<AnchorPane prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientProgram.GUI.ChooseSubjectController">
    <children>
       <Circle fill="#6f6f6f" layoutX="386.0" layoutY="444.0" radius="166.0" stroke="BLACK" strokeType="INSIDE" />
       <Line endX="55.0" endY="3.0" layoutX="336.0" layoutY="445.0" startX="-26.0" startY="-147.0" />
