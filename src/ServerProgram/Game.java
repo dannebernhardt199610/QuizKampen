@@ -73,7 +73,6 @@ public class Game {
                     player.getScoreReport().addPointsToCurrentRound(currentRoundindex);
                 }
 
-
                 for (PlayerServer pServer : playerServers) {
                     if(!pServer.player.isHasAnswered()){
                         return;
