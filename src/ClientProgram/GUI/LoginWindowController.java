@@ -74,7 +74,6 @@ public class LoginWindowController {
     }
 
     public void initializeConnection(String username){
-        //Move connection to connect button!!
         String hostName = "127.0.0.1";
         int portNr = 13377;
 
