@@ -38,7 +38,6 @@ public class WinnerLobbyController {
     @FXML
     void disconnect(ActionEvent event) throws Exception {
      System.exit(0);
-
     }
 
 }

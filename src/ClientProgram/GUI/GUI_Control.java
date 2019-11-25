@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class GUI_Control {
 
-    private static Stage currentStage;
+    private static Stage currentStage; //Kopierar primary stage i Main
 
     private static FXMLLoader ingameLoader = new FXMLLoader(GUI_Control.class.getResource("ingameeea.fxml"));
     private static Parent ingameParent;

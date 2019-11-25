@@ -19,8 +19,6 @@ public class IngameController{
     int counter = 0;
     String input = "";
 
-    ClientConnection clientConnection;
-
     @FXML
     private AnchorPane question;
 
@@ -110,7 +108,7 @@ public class IngameController{
 
                 chatWindow.appendText("[Du] " + messageToServer + "\n");
                 ClientRequest messageRequest = new ClientRequest(ClientRequest.TYPE.MESSAGE_TO_ALL, messageToServer);
-                clientConnection.sendObjectToServer(messageRequest);
+                Main.clientConnection.sendObjectToServer(messageRequest);
             }
         }
 

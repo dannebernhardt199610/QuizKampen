@@ -69,8 +69,6 @@ public class LoginWindowController {
 
     @FXML
     void changeSceneToIngameScene(ActionEvent event) throws Exception {
-
-
         //This changes scene to the ingameScene
         GUI_Control.changeScene(GUI_Control.getIngameScene());
     }
