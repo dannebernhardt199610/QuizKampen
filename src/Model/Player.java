@@ -4,6 +4,7 @@ public class Player {
     private String name;
     private int score;
     private boolean isReady;
+    private boolean hasAnswered;
 
     public boolean isReady() {
         return isReady;
@@ -11,6 +12,14 @@ public class Player {
 
     public void setReady(boolean ready) {
         isReady = ready;
+    }
+
+    public boolean isHasAnswered() {
+        return hasAnswered;
+    }
+
+    public void setHasAnswered(boolean hasAnswered) {
+        this.hasAnswered = hasAnswered;
     }
 
     public String getName() {

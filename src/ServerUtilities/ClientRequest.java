@@ -7,11 +7,11 @@ public class ClientRequest implements Serializable {
     static final long serialVersionUID = 1L;
 
     public enum TYPE{
-        SEND_USERNAME,
+        SET_USERNAME,
         MESSAGE_TO_ALL,
         SUBMIT_ANSWER,
         REQUEST_SCORE,
-        VERIFY_USERNAME //Asks the server to check that the username is not taken
+        NOTIFY_READY
     }
 
     public TYPE type;

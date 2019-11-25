@@ -43,18 +43,9 @@ public class Game {
         Player player = playerServer.getPlayer();
 
         switch (objectFromClient.type) {
-            case SEND_USERNAME:
-                System.out.println("Username: " + objectFromClient.message);
-                System.out.println("Number or players:" + playerServers.size());
+            case SET_USERNAME:
                 player.setName(objectFromClient.message);
 
-                if(playerServers.size() == nrOfPlayers){
-                    System.out.println("All players connected, ready to send");
-                    //JUST A TEST! GET FROM DATABASE
-                    System.out.println(currentQuestion);
-
-                    sendToAllPlayers(currentQuestion);
-                }
                 break;
             case REQUEST_SCORE:
                 //This sends a list with all the players scores to the playerServer that requested it
@@ -82,8 +73,18 @@ public class Game {
                 }
 
                 break;
-            case VERIFY_USERNAME:
-                //Check if username already exists. Return ServerResponse object
+            case NOTIFY_READY:
+                player.setReady(true);
+
+
+                if (playerServers.size() == nrOfPlayers) {
+                    for (PlayerServer pServer : playerServers) {
+                        if(!pServer.player.isReady())
+                            return;
+                    }
+                    //Hit kommer vi bara om alla spelare isReady == true
+                    sendToAllPlayers(currentQuestion);
+                }
                 break;
         }
     }

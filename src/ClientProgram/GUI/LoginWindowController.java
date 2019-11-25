@@ -4,11 +4,8 @@ import ClientProgram.ClientConnection;
 import ServerUtilities.ClientRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import static ClientProgram.GUI.Main.clientConnection;
 
@@ -71,6 +68,7 @@ public class LoginWindowController {
     void changeSceneToIngameScene(ActionEvent event) throws Exception {
         //This changes scene to the ingameScene
         GUI_Control.changeScene(GUI_Control.getIngameScene());
+        clientConnection.sendObjectToServer(new ClientRequest(ClientRequest.TYPE.NOTIFY_READY, null));
     }
 
     public void initializeConnection(String username){
@@ -80,7 +78,7 @@ public class LoginWindowController {
         //Static import of Main.clientConnection so we can access it from anywhere
         clientConnection = new ClientConnection(hostName, portNr);
         System.out.println("Username = " + username);
-        clientConnection.sendObjectToServer(new ClientRequest(ClientRequest.TYPE.SEND_USERNAME, username));
+        clientConnection.sendObjectToServer(new ClientRequest(ClientRequest.TYPE.SET_USERNAME, username));
         System.out.println("Object sent to server");
     }
 }
