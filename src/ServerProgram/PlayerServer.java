@@ -10,11 +10,10 @@ import java.net.Socket;
 
 public class PlayerServer implements Runnable{
 
-    Player player;
+    Player player = new Player();
     private final Socket socket;
     ObjectOutputStream out;
     Game game;
-    ScoreReport scoreReport;
 
     public PlayerServer(Socket socket, Game game) {
         this.socket = socket;
@@ -26,9 +25,7 @@ public class PlayerServer implements Runnable{
 
         new Thread(this).start();
 
-        int numberOfRounds = 4; //CHANGE TO READ FROM PROPERTIES INSTEAD!!
-        this.scoreReport = new ScoreReport(numberOfRounds);
-        player = new Player();
+        this.player.setScoreReport(new ScoreReport(game.nrOfRounds));
     }
 
     @Override

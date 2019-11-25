@@ -10,9 +10,8 @@ public class ScoreReport implements Serializable {
     //addPointsToCurrentRound() will be called if the player had the correct answer
     //After each round, goToNextRound() will be called
 
+    String playerName;
     private int totalScore = 0;
-    private int currentRoundIndex = 0;
-
     private int[] roundScores;
 
 
@@ -20,13 +19,9 @@ public class ScoreReport implements Serializable {
         this.roundScores = new int[numberOfRounds];
     }
 
-    public void addPointsToCurrentRound(){
+    public void addPointsToCurrentRound(int currentRoundIndex){
         roundScores[currentRoundIndex]++;
         totalScore++;
-    }
-
-    public void goToNextRound(){
-        currentRoundIndex++;
     }
 
 
@@ -38,19 +33,19 @@ public class ScoreReport implements Serializable {
         this.totalScore = totalScore;
     }
 
-    public int getCurrentRoundIndex() {
-        return currentRoundIndex;
-    }
-
-    public void setCurrentRoundIndex(int currentRoundIndex) {
-        this.currentRoundIndex = currentRoundIndex;
-    }
-
     public int[] getRoundScores() {
         return roundScores;
     }
 
     public void setRoundScores(int[] roundScores) {
         this.roundScores = roundScores;
+    }
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
     }
 }

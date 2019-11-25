@@ -2,7 +2,7 @@ package Model;
 
 public class Player {
     private String name;
-    private int score;
+    private ScoreReport scoreReport;
     private boolean isReady;
     private boolean hasAnswered;
 
@@ -30,13 +30,11 @@ public class Player {
         this.name = name;
     }
 
-    public int getScore() {
-        return score;
+    public ScoreReport getScoreReport() {
+        return scoreReport;
     }
 
-    public void setScore(boolean isCorrectAnswer) {
-        if(isCorrectAnswer){
-            this.score++;
-        }
+    public void setScoreReport(ScoreReport scoreReport) {
+        this.scoreReport = scoreReport;
     }
 }
