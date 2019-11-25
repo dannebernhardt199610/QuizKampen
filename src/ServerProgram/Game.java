@@ -89,7 +89,12 @@ public class Game {
                 else {
                     currentRoundindex++;
                     currentQuestionindex = 0;
-                    //Skicka notifiering att en av spelarna ska välja kategori
+                    if(currentRoundindex < nrOfRounds){
+                        //Skicka notifiering att en av spelarna ska välja kategori
+                    }
+                    else {
+                        //Notify game over
+                    }
                 }
 
 
