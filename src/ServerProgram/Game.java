@@ -1,8 +1,9 @@
 package ServerProgram;
 
+import Databas.Question;
+import Databas.QuestionDatabase;
 import Model.Player;
 import ServerUtilities.ClientRequest;
-import Model.Question;
 import Model.ScoreReport;
 import ServerUtilities.ServerResponse;
 
@@ -18,14 +19,21 @@ public class Game {
     int currentRoundindex = 0;
     int currentQuestionindex = 0;
 
+    QuestionDatabase questionDatabase = new QuestionDatabase();
+    Question currentQuestion;
+
     List<PlayerServer> playerServers = new ArrayList<>();
-    List<Question> questions = new ArrayList<>();
+    List<Question> questions = questionDatabase.getGameQuestions();
 
-
+    //Initialize questions
     public Game(){
-        questions.add(new Question("Vad är 1+1?", new String[]{"2", "4", "8", "123"}));
+        System.out.println(getCurrentQuestion().toString());
     }
 
+    public Question getCurrentQuestion(){
+        //Currently only gaming questions
+        return questionDatabase.getGameQuestions().get(currentQuestionindex);
+    }
 
     public void addPlayerToList(PlayerServer playerServer){
         playerServers.add(playerServer);
@@ -69,9 +77,10 @@ public class Game {
                 break;
             case SUBMIT_ANSWER:
                 player.setHasAnswered(true);
-                if(objectFromClient.message.equals(questions.get(currentQuestionindex).getCorrectAnswer())){
-                    player.getScoreReport().addPointsToCurrentRound(currentRoundindex);
-                }
+                //Check answer!!!
+//                if(objectFromClient.message.equals(questions.get(currentQuestionindex).getAnswers().)){
+//                    player.getScoreReport().addPointsToCurrentRound(currentRoundindex);
+//                }
 
                 for (PlayerServer pServer : playerServers) {
                     if(!pServer.player.isHasAnswered()){

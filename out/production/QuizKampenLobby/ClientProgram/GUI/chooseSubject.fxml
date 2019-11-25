@@ -1,15 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientProgram.GUI.ChooseSubjectController">
+<AnchorPane prefHeight="800.0" prefWidth="800.0" style="-fx-background-color: #7FDBFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ChooseSubject">
    <children>
-      <Circle fill="#6f6f6f" layoutX="386.0" layoutY="444.0" radius="166.0" stroke="BLACK" strokeType="INSIDE" />
-      <Line endX="55.0" endY="3.0" layoutX="336.0" layoutY="445.0" startX="-26.0" startY="-147.0" />
-      <Line endX="190.0" endY="42.0" layoutX="361.0" layoutY="381.0" startX="29.0" startY="69.0" />
-      <Line endX="-90.0" endY="41.0" layoutX="400.0" layoutY="547.0" startX="-10.70709228515625" startY="-96.29290771484375" />
+      <Pane layoutX="-1.0" layoutY="582.0" prefHeight="216.0" prefWidth="800.0" style="-fx-background-color: #001f3f;">
+         <effect>
+            <Glow />
+         </effect>
+      </Pane>
+      <Pane layoutY="-1.0" prefHeight="216.0" prefWidth="800.0" style="-fx-background-color: #0074D9;">
+         <children>
+            <Label alignment="CENTER" blendMode="HARD_LIGHT" contentDisplay="CENTER" layoutX="475.0" layoutY="168.0" prefHeight="55.0" prefWidth="325.0" text="Opponent" textFill="WHITE">
+               <font>
+                  <Font name="Monospaced Bold" size="37.0" />
+               </font>
+               <effect>
+                  <Reflection />
+               </effect>
+            </Label>
+            <Pane blendMode="ADD" layoutX="325.0" layoutY="175.0" prefHeight="49.0" prefWidth="150.0" style="-fx-background-color: lightblue;">
+               <children>
+                  <Text fill="#170c0c" layoutX="59.0" layoutY="34.0" stroke="#9e8f8f" strokeType="OUTSIDE" strokeWidth="2.0" text="VS" textAlignment="JUSTIFY" wrappingWidth="61.13671875">
+                     <font>
+                        <Font name="Monospaced Bold" size="28.0" />
+                     </font>
+                  </Text>
+               </children>
+               <effect>
+                  <Reflection />
+               </effect>
+            </Pane>
+            <Label fx:id="label1" alignment="CENTER" blendMode="HARD_LIGHT" contentDisplay="CENTER" layoutY="168.0" onInputMethodTextChanged="#textCahnged" prefHeight="55.0" prefWidth="332.0" text="You" textFill="WHITE">
+               <font>
+                  <Font name="Monospaced Bold" size="37.0" />
+               </font>
+               <effect>
+                  <Reflection />
+               </effect>
+            </Label>
+            <Text fill="#fffefe" fontSmoothingType="LCD" layoutX="338.0" layoutY="48.0" stroke="#008cff" strokeType="OUTSIDE" strokeWidth="2.0" text="Din tur!" wrappingWidth="273.7071228027344">
+               <font>
+                  <Font name="Arial Black" size="28.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+            </Text>
+            <Text fill="#fffefe" fontSmoothingType="LCD" layoutX="325.0" layoutY="88.0" stroke="#008cff" strokeType="OUTSIDE" strokeWidth="2.0" text="Välj en kategori" wrappingWidth="150.0">
+               <font>
+                  <Font name="Arial Black" size="17.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <Circle fill="#0074d9" layoutX="400.0" layoutY="503.0" radius="208.0" stroke="#bfbfbf" strokeType="INSIDE">
+         <effect>
+            <Glow />
+         </effect>
+      </Circle>
+      <Line endX="77.0" endY="1.0" layoutX="323.0" layoutY="503.0" startX="77.0" startY="-207.0" />
+      <Line endX="209.0" endY="178.0" layoutX="349.0" layoutY="456.0" startX="51.0" startY="47.0" />
+      <Line endX="-150.0" endY="-2.0" layoutX="379.0" layoutY="622.0" startX="20.0" startY="-118.4141845703125" />
+      <Button fx:id="bluebutton" alignment="CENTER" layoutX="232.0" layoutY="384.0" mnemonicParsing="false" onAction="#bluebutton" prefHeight="76.0" prefWidth="150.0" style="-fx-background-color: #001f3f;" text="SPORT" textFill="#fffdfd">
+         <font>
+            <Font name="Monospaced Bold" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+         <effect>
+            <Reflection />
+         </effect>
+      </Button>
+      <Button fx:id="orangeubtton" alignment="CENTER" layoutX="324.0" layoutY="575.0" mnemonicParsing="false" onAction="#orangebutton" prefHeight="76.0" prefWidth="150.0" style="-fx-background-color: #FF851B;" text="VETENSKAP" textFill="#fffdfd">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+         <effect>
+            <Reflection />
+         </effect>
+      </Button>
+      <Button fx:id="redbutton" alignment="CENTER" layoutX="420.0" layoutY="384.0" mnemonicParsing="false" onAction="#redbutton" prefHeight="76.0" prefWidth="150.0" style="-fx-background-color: #FF4136;" text="GEOGRAFI" textFill="#fffdfd">
+         <font>
+            <Font name="Monospaced Bold" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+         <effect>
+            <Reflection />
+         </effect>
+      </Button>
    </children>
 </AnchorPane>

@@ -11,6 +11,9 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
    public static ClientConnection clientConnection;
+    public static String name = "Player";
+    public static int rounds = 0;
+    public static int questionsPerRound = 0;
 
     @Override
     public void start(Stage primaryStage) throws Exception {

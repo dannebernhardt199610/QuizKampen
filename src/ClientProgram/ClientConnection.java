@@ -1,10 +1,5 @@
 package ClientProgram;
 
-import ClientProgram.GUI.*;
-import Model.Question;
-import ServerUtilities.ServerResponse;
-import javafx.application.Platform;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;

@@ -2,7 +2,8 @@ package ClientProgram;
 
 import ClientProgram.GUI.GUI_Control;
 import ClientProgram.GUI.IngameController;
-import Model.Question;
+import Databas.Answer;
+import Databas.Question;
 import ServerUtilities.ServerResponse;
 import javafx.application.Platform;
 
@@ -28,11 +29,11 @@ public class ClientProtocol {
             //Denna lambda Platform.runLater gör att vi inte bråkar med GUI-thread så synkar det snyggt
             Platform.runLater(() -> {
                 ingameController.questionArea.setText(question.getQuestion());
-                String[] answers = question.getAnswers();
-                ingameController.answer1.setText(answers[0]);
-                ingameController.answer2.setText(answers[1]);
-                ingameController.answer3.setText(answers[2]);
-                ingameController.answer4.setText(answers[3]);
+                Answer[] answers = question.getAnswers();
+                ingameController.answer1.setText(answers[0].getClaim());
+                ingameController.answer2.setText(answers[1].getClaim());
+                ingameController.answer3.setText(answers[2].getClaim());
+                ingameController.answer4.setText(answers[3].getClaim());
             });
         }
 
