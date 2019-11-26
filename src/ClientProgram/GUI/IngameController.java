@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IngameController{
+    public Label categoryLabel;
+
     int counter = 0;
     String input = "";
 

@@ -17,9 +17,9 @@ public class Game {
 
     Properties gameConfigProperty = new Properties();
 
-    int questionsPerRound = Integer.parseInt(gameConfigProperty.getProperty("questionsPerRound"));
-    int nrOfRounds = Integer.parseInt(gameConfigProperty.getProperty("nrOfRounds"));
-    int nrOfPlayers = Integer.parseInt(gameConfigProperty.getProperty("nrOfPlayers"));
+    int questionsPerRound;
+    int nrOfRounds;
+    int nrOfPlayers;
 
     int currentRoundindex = 0;
     int currentQuestionindex = 0;
@@ -35,7 +35,11 @@ public class Game {
         System.out.println(getCurrentQuestion().toString());
 
         try {
-            gameConfigProperty.load(new FileInputStream("/Users/johanozbek/Desktop/grupp projekt i objp/QuizKampenTeamYellowFX/src/Resources/gameConfig.properties"));
+            gameConfigProperty.load(new FileInputStream("src/ServerProgram/Resources/gameConfig.properties"));
+            questionsPerRound = Integer.parseInt(gameConfigProperty.getProperty("questionsPerRound"));
+            nrOfRounds = Integer.parseInt(gameConfigProperty.getProperty("nrOfRounds"));
+            nrOfPlayers = Integer.parseInt(gameConfigProperty.getProperty("nrOfPlayers"));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -90,7 +94,7 @@ public class Game {
                 player.setHasAnswered(true);
                 //Check answer!!!
                if(objectFromClient.message.equals(questions.get(currentQuestionindex).getCorrectAnswer())){
-
+                    player.getScoreReport().addPointsToCurrentRound(currentRoundindex);
                }
 
 
