@@ -7,14 +7,19 @@ import ServerUtilities.ClientRequest;
 import Model.ScoreReport;
 import ServerUtilities.ServerResponse;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class Game {
 
-    int nrOfPlayers = 2; //LOAD FROM PROPERTIES!!
-    int nrOfRounds = 3; //LOAD FROM PROPERTIES!!
-    int questionsPerRound = 2; //LOAD FROM PROPERTIES!!
+    Properties gameConfigProperty = new Properties();
+
+    int questionsPerRound = Integer.parseInt(gameConfigProperty.getProperty("questionsPerRound"));
+    int nrOfRounds = Integer.parseInt(gameConfigProperty.getProperty("nrOfRounds"));
+    int nrOfPlayers = Integer.parseInt(gameConfigProperty.getProperty("nrOfPlayers"));
 
     int currentRoundindex = 0;
     int currentQuestionindex = 0;
@@ -26,8 +31,14 @@ public class Game {
     List<Question> questions = questionDatabase.getGameQuestions();
 
     //Initialize questions
-    public Game(){
+    public Game() {
         System.out.println(getCurrentQuestion().toString());
+
+        try {
+            gameConfigProperty.load(new FileInputStream("/Users/johanozbek/Desktop/grupp projekt i objp/QuizKampenTeamYellowFX/src/Resources/gameConfig.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public Question getCurrentQuestion(){
@@ -78,9 +89,10 @@ public class Game {
             case SUBMIT_ANSWER:
                 player.setHasAnswered(true);
                 //Check answer!!!
-//                if(objectFromClient.message.equals(questions.get(currentQuestionindex).getAnswers().)){
-//                    player.getScoreReport().addPointsToCurrentRound(currentRoundindex);
-//                }
+               if(objectFromClient.message.equals(questions.get(currentQuestionindex).getCorrectAnswer())){
+
+               }
+
 
                 for (PlayerServer pServer : playerServers) {
                     if(!pServer.player.isHasAnswered()){

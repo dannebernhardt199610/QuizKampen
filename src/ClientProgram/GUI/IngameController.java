@@ -15,6 +15,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class IngameController{
     int counter = 0;
     String input = "";
@@ -75,29 +78,7 @@ public class IngameController{
     }
 
 
-    @FXML
-    void answer1(ActionEvent event) {
-        counter++;
-        labelpoints.setVisible(true);
-        labelpoints.setText(String.valueOf(counter));
 
-
-    }
-
-    @FXML
-    void answer2(ActionEvent event) {
-
-    }
-
-    @FXML
-    void answer3(ActionEvent event) {
-
-    }
-
-    @FXML
-    void answer4(ActionEvent event) {
-
-    }
 
     @FXML
     void sendMsg(ActionEvent event) {
@@ -123,6 +104,23 @@ public class IngameController{
 
     public void initialize() {
         //If we want to do stuff right after the scene is loaded
+    }
+
+    public void answerButton(ActionEvent actionEvent) {
+        List<Button> answerButtons = new ArrayList<>();
+        answerButtons.add(answer1);
+        answerButtons.add(answer2);
+        answerButtons.add(answer3);
+        answerButtons.add(answer4);
+
+
+        Button clickedButton = (Button) actionEvent.getSource();
+
+        String answer = clickedButton.getText();
+        Main.clientConnection.sendObjectToServer(new ClientRequest(ClientRequest.TYPE.SUBMIT_ANSWER, answer));
+
+        //disable buttons, preferably pretty :P
+        //Set color for buttons
     }
 }
 

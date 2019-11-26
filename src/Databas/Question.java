@@ -8,12 +8,13 @@ public class Question implements Serializable {
 
     String question;
     Answer[] answers;
+    String correctAnswer;
 
     public Question(String question, Answer[] answers){
 
         this.question = question;
         this.answers = answers;
-        this.answers[0].setisCorrect(true);
+        this.correctAnswer = this.answers[0].getClaim();
     }
 
     public String toString(){
@@ -50,6 +51,10 @@ public class Question implements Serializable {
         }
 
         this.setAnswers(shuffled);
+    }
+
+    public String getCorrectAnswer() {
+        return correctAnswer;
     }
 
     public String getQuestion() {
