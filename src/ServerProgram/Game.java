@@ -53,13 +53,13 @@ public class Game {
 
 
     //Här hanterar vi vad som händer med de objekt vi tar emot, de object vi vill skicka till klienter osv
-    public synchronized void processObject(PlayerServer player, Object objectFromClient){
+    public synchronized void processObject(PlayerServer playerServer, Object objectFromClient){
 
         //Vi matar in vilken spelare som tagit emot objektet, samt objektet som tagits emot
         //Hantera objekt som kommer in från PlayerServer
 
         if(objectFromClient instanceof ClientRequest){
-            processRequest(player, (ClientRequest) objectFromClient);
+            processRequest(playerServer, (ClientRequest) objectFromClient);
         }
 
 
