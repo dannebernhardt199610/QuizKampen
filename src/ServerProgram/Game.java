@@ -12,9 +12,16 @@ import java.util.List;
 
 public class Game {
 
-    int nrOfPlayers = 2; //LOAD FROM PROPERTIES!!
-    int nrOfRounds = 3; //LOAD FROM PROPERTIES!!
-    int questionsPerRound = 2; //LOAD FROM PROPERTIES!!
+    Properties gameConfigProperty = new Properties();
+    try{
+        gameConfigProperty.load(new FileInputStream("/Users/johanozbek/Desktop/untitled3/src/gameConfig.properties"));
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
+    int questionsPerRound = Integer.parseInt(gameConfigProperty.getProperty("questionsPerRound"));
+    int nrOfRounds = Integer.parseInt(gameConfigProperty.getProperty("nrOfRounds"));
+    int nrOfPlayers = Integer.parseInt(gameConfigProperty.getProperty("nrOfPlayers"));
 
     int currentRoundindex = 0;
     int currentQuestionindex = 0;
