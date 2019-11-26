@@ -7,21 +7,24 @@ import ServerUtilities.ClientRequest;
 import Model.ScoreReport;
 import ServerUtilities.ServerResponse;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class Game {
 
     Properties gameConfigProperty = new Properties();
-    try{
-        gameConfigProperty.load(new FileInputStream("/Users/johanozbek/Desktop/untitled3/src/gameConfig.properties"));
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
 
-    int questionsPerRound = Integer.parseInt(gameConfigProperty.getProperty("questionsPerRound"));
-    int nrOfRounds = Integer.parseInt(gameConfigProperty.getProperty("nrOfRounds"));
-    int nrOfPlayers = Integer.parseInt(gameConfigProperty.getProperty("nrOfPlayers"));
+
+    int questionsPerRound = 1;
+    int nrOfRounds = 1;
+    int nrOfPlayers = 1;
+//    int questionsPerRound = Integer.parseInt(gameConfigProperty.getProperty("questionsPerRound"));
+//    int nrOfRounds = Integer.parseInt(gameConfigProperty.getProperty("nrOfRounds"));
+//    int nrOfPlayers = Integer.parseInt(gameConfigProperty.getProperty("nrOfPlayers"));
 
     int currentRoundindex = 0;
     int currentQuestionindex = 0;
@@ -33,31 +36,35 @@ public class Game {
     List<Question> questions = questionDatabase.getGameQuestions();
 
     //Initialize questions
-    public Game(){
+    public Game() {
         System.out.println(getCurrentQuestion().toString());
+
+//        try {
+//            gameConfigProperty.load(new FileInputStream("/Users/johanozbek/Desktop/grupp projekt i objp/QuizKampenTeamYellowFX/src/Resources/gameConfig.properties"));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
-    public Question getCurrentQuestion(){
+    public Question getCurrentQuestion() {
         //Currently only gaming questions
         return questionDatabase.getGameQuestions().get(currentQuestionindex);
     }
 
-    public void addPlayerToList(PlayerServer playerServer){
+    public void addPlayerToList(PlayerServer playerServer) {
         playerServers.add(playerServer);
     }
 
 
-
     //Här hanterar vi vad som händer med de objekt vi tar emot, de object vi vill skicka till klienter osv
-    public synchronized void processObject(PlayerServer player, Object objectFromClient){
+    public synchronized void processObject(PlayerServer player, Object objectFromClient) {
 
         //Vi matar in vilken spelare som tagit emot objektet, samt objektet som tagits emot
         //Hantera objekt som kommer in från PlayerServer
 
-        if(objectFromClient instanceof ClientRequest){
+        if (objectFromClient instanceof ClientRequest) {
             processRequest(player, (ClientRequest) objectFromClient);
         }
-
 
 
         //Exempel på att skicka ett objekt
@@ -77,7 +84,7 @@ public class Game {
             case REQUEST_SCORE:
                 //This sends a list with all the players scores to the playerServer that requested it
                 List<ScoreReport> playerScoreReports = new ArrayList<>();
-                for (PlayerServer pServer: playerServers) {
+                for (PlayerServer pServer : playerServers) {
                     playerScoreReports.add(pServer.player.getScoreReport());
                 }
                 playerServer.sendObjectToClient(playerScoreReports);
@@ -90,7 +97,7 @@ public class Game {
 //                }
 
                 for (PlayerServer pServer : playerServers) {
-                    if(!pServer.player.isHasAnswered()){
+                    if (!pServer.player.isHasAnswered()) {
                         return;
                     }
                 }
@@ -99,16 +106,14 @@ public class Game {
                     pServer.player.setHasAnswered(false);
                 }
                 currentQuestionindex++;
-                if(currentQuestionindex < questionsPerRound){
+                if (currentQuestionindex < questionsPerRound) {
                     sendToAllPlayers(questions.get(currentQuestionindex));
-                }
-                else {
+                } else {
                     currentRoundindex++;
                     currentQuestionindex = 0;
-                    if(currentRoundindex < nrOfRounds){
+                    if (currentRoundindex < nrOfRounds) {
                         //Skicka notifiering att en av spelarna ska välja kategori
-                    }
-                    else {
+                    } else {
                         //Notify game over
                     }
                 }
@@ -123,9 +128,9 @@ public class Game {
                 System.out.println("Message: " + objectFromClient.message);
                 //Send chat message to all players
                 ServerResponse serverResponse = new ServerResponse(ServerResponse.TYPE.MESSAGE_FROM_CLIENT,
-                                                "[" + player.getName() + "] " + objectFromClient.message);
-                for (PlayerServer pServer: playerServers) {
-                    if(pServer != playerServer){
+                        "[" + player.getName() + "] " + objectFromClient.message);
+                for (PlayerServer pServer : playerServers) {
+                    if (pServer != playerServer) {
                         pServer.sendObjectToClient(serverResponse);
                     }
                 }
@@ -135,7 +140,7 @@ public class Game {
                 player.setReady(true);
                 if (playerServers.size() == nrOfPlayers) {
                     for (PlayerServer pServer : playerServers) {
-                        if(!pServer.player.isReady())
+                        if (!pServer.player.isReady())
                             return;
                     }
                     //Hit kommer vi bara om alla spelare isReady == true
@@ -145,8 +150,8 @@ public class Game {
         }
     }
 
-    public void sendToAllPlayers(Object objectToClient){
-        for (PlayerServer playerServer: playerServers) {
+    public void sendToAllPlayers(Object objectToClient) {
+        for (PlayerServer playerServer : playerServers) {
             playerServer.sendObjectToClient(objectToClient);
         }
         System.out.println("Object has now been sent to all clients");
