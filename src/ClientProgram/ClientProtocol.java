@@ -17,6 +17,10 @@ public class ClientProtocol {
                 //Hantera Server Responses
                 case MESSAGE_FROM_CLIENT:
                     ingameController.chatWindow.appendText(((ServerResponse) objectFromServer).message + "\n");
+                    break;
+                case NOTIFY_GAME_OVER:
+                    //Switch to game over window
+                    break;
             }
         }
         else if (objectFromServer instanceof Question){
@@ -29,7 +33,7 @@ public class ClientProtocol {
             Platform.runLater(() -> {
                 ingameController.questionArea.setText(question.getQuestion());
                 //Visa kategori i rätt label
-                ingameController.categoryLabel.setText("Kategori");
+                ingameController.categoryLabel.setText(question.getGenre());
                 String[] answers = question.getAnswers();
                 ingameController.answer1.setText(answers[0]);
                 ingameController.answer2.setText(answers[1]);

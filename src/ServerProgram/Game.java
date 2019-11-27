@@ -25,11 +25,10 @@ public class Game {
     int currentQuestionindex = 0;
     int currentGenreIndex = 0;
 
-    QuestionDatabase questionDatabase = new QuestionDatabase();
-    Question currentQuestion;
+    QuestionDatabase questionDatabase;
 
     List<PlayerServer> playerServers = new ArrayList<>();
-    ArrayList[] genres = questionDatabase.getGenres();
+    ArrayList[] genres;
     List<Question> questionList;
 
     //Initialize questions
@@ -41,7 +40,9 @@ public class Game {
             nrOfRounds = Integer.parseInt(gameConfigProperty.getProperty("nrOfRounds"));
             nrOfPlayers = Integer.parseInt(gameConfigProperty.getProperty("nrOfPlayers"));
 
-            //Frågor med mera är redan slumpmässigt
+            //Frågor med mera är redan slumpmässiga då de slumpas i database-konstruktorn
+            questionDatabase = new QuestionDatabase();
+            genres = questionDatabase.getGenres();
             questionList = genres[currentGenreIndex];
 
         } catch (IOException e) {
@@ -121,10 +122,11 @@ public class Game {
                     currentGenreIndex++;
                     currentQuestionindex = 0;
 
-                    if(currentGenreIndex > genres.length){
+                    if(currentGenreIndex >= genres.length){
                         currentGenreIndex = 0;
                         //Ny database innebär att allting shufflas
                         questionDatabase = new QuestionDatabase();
+                        genres = questionDatabase.getGenres();
                     }
 
                     if(currentRoundindex < nrOfRounds){
@@ -134,6 +136,7 @@ public class Game {
                     }
                     else {
                         //Notify game over
+                        sendToAllPlayers(new ServerResponse(ServerResponse.TYPE.NOTIFY_GAME_OVER, null));
                     }
                 }
 
