@@ -1,12 +1,15 @@
 package ServerProgram;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Properties;
 
 public class ServerMain implements Runnable {
 
-    private int playersPerGame = 2;
+    private Properties gameConfigProperty = new Properties();
+    private int playersPerGame;
     private int portNr = 13377;
 
 
@@ -24,7 +27,12 @@ public class ServerMain implements Runnable {
     @Override
     public void run() {
         try {
+            gameConfigProperty.load(new FileInputStream("src/ServerProgram/Resources/gameConfig.properties"));
+            playersPerGame = Integer.parseInt(gameConfigProperty.getProperty("nrOfPlayers"));
+            portNr = Integer.parseInt(gameConfigProperty.getProperty("portNr"));
+
             ServerSocket serverSocket = new ServerSocket(portNr);
+
 
             System.out.println("Server running");
             boolean running = true;

@@ -36,9 +36,9 @@ public class Game {
 
         try {
             gameConfigProperty.load(new FileInputStream("src/ServerProgram/Resources/gameConfig.properties"));
+            nrOfPlayers = Integer.parseInt(gameConfigProperty.getProperty("nrOfPlayers"));
             questionsPerRound = Integer.parseInt(gameConfigProperty.getProperty("questionsPerRound"));
             nrOfRounds = Integer.parseInt(gameConfigProperty.getProperty("nrOfRounds"));
-            nrOfPlayers = Integer.parseInt(gameConfigProperty.getProperty("nrOfPlayers"));
 
             //Frågor med mera är redan slumpmässiga då de slumpas i database-konstruktorn
             questionDatabase = new QuestionDatabase();
