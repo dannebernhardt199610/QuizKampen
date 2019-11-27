@@ -17,6 +17,9 @@ public class Question implements Serializable {
         this.answers = answers;
         this.correctAnswer = answers[0];
         this.genre = genre;
+
+        //Blanda svarsalternativ
+        shuffleAnswers();
     }
 
     public String toString(){

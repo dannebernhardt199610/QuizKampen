@@ -9,6 +9,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class QuestionDatabase {
 
@@ -78,6 +81,19 @@ public class QuestionDatabase {
             }
         }
 
+        //Blanda alla frågor i varja lista med frågor
+        for (List<Question> questionList: this.genres) {
+            Collections.shuffle(questionList);
+        }
+
+        //Blanda alla listor i arrayen "genres"
+        shuffleGenres();
+    }
+
+    private void shuffleGenres() {
+        List<ArrayList> genreList = Arrays.asList(this.genres);
+        Collections.shuffle(genreList);
+        this.genres = (ArrayList[]) genreList.toArray();
     }
 
     public ArrayList<Question> getMovieQuestions() {
