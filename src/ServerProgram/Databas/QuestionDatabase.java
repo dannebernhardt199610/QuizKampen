@@ -8,10 +8,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class QuestionDatabase {
 
@@ -91,9 +88,14 @@ public class QuestionDatabase {
     }
 
     private void shuffleGenres() {
-        List<ArrayList> genreList = Arrays.asList(this.genres);
-        Collections.shuffle(genreList);
-        this.genres = (ArrayList[]) genreList.toArray();
+        Random r = new Random();
+
+        for(int i = 0; i < this.genres.length; i++) {
+            int rInt = r.nextInt(this.genres.length);
+            List temp = this.genres[i];
+            this.genres[i] = this.genres[rInt];
+            this.genres[rInt] = (ArrayList) temp;
+        }
     }
 
     public ArrayList<Question> getMovieQuestions() {

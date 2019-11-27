@@ -45,13 +45,13 @@ public class Question implements Serializable {
 
             byte randomOne = (byte)(Math.random()*3);
 
-            System.out.println(randomOne);
+            //System.out.println(randomOne);
 
             tempAnswer = shuffled[randomOne];
 
             byte randomTwo = (byte)(Math.round(Math.random()*3));
 
-            System.out.println(randomTwo);
+            //System.out.println(randomTwo);
 
             shuffled[randomOne] = shuffled[randomTwo];
 

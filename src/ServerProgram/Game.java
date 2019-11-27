@@ -23,6 +23,7 @@ public class Game {
 
     int currentRoundindex = 0;
     int currentQuestionindex = 0;
+    int currentGenreIndex = 0;
 
     QuestionDatabase questionDatabase = new QuestionDatabase();
     Question currentQuestion;
@@ -33,7 +34,6 @@ public class Game {
 
     //Initialize questions
     public Game() {
-        System.out.println(getCurrentQuestion().toString());
 
         try {
             gameConfigProperty.load(new FileInputStream("src/ServerProgram/Resources/gameConfig.properties"));
@@ -41,8 +41,8 @@ public class Game {
             nrOfRounds = Integer.parseInt(gameConfigProperty.getProperty("nrOfRounds"));
             nrOfPlayers = Integer.parseInt(gameConfigProperty.getProperty("nrOfPlayers"));
 
-            //Lägg frågelistorna i slumpmässig ordning
-            questionList = genres[0];
+            //Frågor med mera är redan slumpmässigt
+            questionList = genres[currentGenreIndex];
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -112,14 +112,25 @@ public class Game {
                     pServer.player.setHasAnswered(false);
                 }
                 currentQuestionindex++;
+
                 if(currentQuestionindex < questionsPerRound){
                     sendToAllPlayers(questionList.get(currentQuestionindex));
                 }
                 else {
                     currentRoundindex++;
+                    currentGenreIndex++;
                     currentQuestionindex = 0;
+
+                    if(currentGenreIndex > genres.length){
+                        currentGenreIndex = 0;
+                        //Ny database innebär att allting shufflas
+                        questionDatabase = new QuestionDatabase();
+                    }
+
                     if(currentRoundindex < nrOfRounds){
-                        //Skicka notifiering att en av spelarna ska välja kategori
+                        //Vi byter kategori
+                        questionList = genres[currentGenreIndex];
+                        sendToAllPlayers(questionList.get(currentQuestionindex));
                     }
                     else {
                         //Notify game over
