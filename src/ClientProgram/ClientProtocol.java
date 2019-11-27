@@ -31,6 +31,8 @@ public class ClientProtocol {
                 case SCORE_REPORT:
                     System.out.println(((ServerResponse) objectFromServer).message);
                     Platform.runLater(()->{
+                        GUI_Control.getIngameController().currentRoundPoints = 0;
+                        GUI_Control.getIngameController().currentRoundPointsLabel.setText("0");
                         GUI_Control.getScoreBoardController().scoreboardArea.setText("");
                         GUI_Control.getScoreBoardController().scoreboardArea.appendText(((ServerResponse) objectFromServer).message);
                         GUI_Control.changeScene(GUI_Control.getScoreBoardScene());

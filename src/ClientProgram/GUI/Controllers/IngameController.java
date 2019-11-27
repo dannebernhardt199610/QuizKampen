@@ -71,7 +71,7 @@ public class IngameController{
     private TextField msgTextField;
 
     public Question currentQuestion;
-    int currentRoundPoints = 0;
+    public int currentRoundPoints = 0;
     int totalPoints = 0;
 
 

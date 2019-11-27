@@ -115,7 +115,7 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <TextField fx:id="msgTextField" layoutX="347.0" layoutY="765.0" prefHeight="88.0" prefWidth="362.0" promptText="Message" visible="false">
+            <TextField fx:id="msgTextField" layoutX="347.0" layoutY="765.0" prefHeight="88.0" prefWidth="362.0" promptText="Message" onAction="#sendMsg" visible="false">
                <effect>
                   <InnerShadow choke="0.5" color="#7fdbff" height="62.7" radius="30.802500000000002" width="62.51" />
                </effect>

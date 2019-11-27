@@ -22,11 +22,10 @@ public class LoginWindowController {
 
     @FXML
     public TextField usernameField;
+    public Button ConnectButton;
+    public Label waitingforPlayerlabel;
     @FXML
     private VBox firstwindow;
-
-    @FXML
-    public TextField username;
 
     @FXML
     private Button button1;
@@ -117,46 +116,53 @@ public class LoginWindowController {
             applySettingsButton.setDisable(false);
 
         });
-        applySettingsButton.setOnAction(actionEvent -> {
-            try {
-                int test = Integer.parseInt(playerQuestionsPerRound.getText());
-            } catch (NumberFormatException e) {
+        applySettingsButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
 
-                playerQuestionsPerRound.setText("3");
-                JOptionPane.showMessageDialog(null,
-                        "Rounds Have To Be A Number!");
-                return;
-            }
-            try {
-                int test = Integer.parseInt(playerRounds.getText());
-            } catch (NumberFormatException e) {
-                playerRounds.setText("3");
-                JOptionPane.showMessageDialog(null,
-                        "Questions Per Round Have To Be A Number!");
-                return;
-            }
-            if(Integer.parseInt(playerQuestionsPerRound.getText()) < 3||
-                    Integer.parseInt(playerQuestionsPerRound.getText()) > 9
-            ){
-                JOptionPane.showMessageDialog(null,
-                        "Questions per round has to be between 3 and 9!");
-                playerQuestionsPerRound.setText("3");
-                return;
-            }
 
-            if(Integer.parseInt(playerRounds.getText()) < 1||
-                    Integer.parseInt(playerRounds.getText()) > 9
-            ){
-                JOptionPane.showMessageDialog(null,
-                        "Rounds have to be between 1 and 9!");
-                playerRounds.setText("3");
-                return;
-            }
+                try {
+                    int test = Integer.parseInt(playerQuestionsPerRound.getText());
+                } catch (NumberFormatException e) {
 
-            writeToProperties(playerName.getText(),
-                    playerRounds.getText(), playerQuestionsPerRound.getText());
-            settingsWindow.close();
-            readProperties();
+                    playerQuestionsPerRound.setText("3");
+                    JOptionPane.showMessageDialog(null,
+                            "Rounds Have To Be A Number!");
+                    return;
+                }
+                try {
+                    int test = Integer.parseInt(playerRounds.getText());
+                } catch (NumberFormatException e) {
+                    playerRounds.setText("3");
+                    JOptionPane.showMessageDialog(null,
+                            "Questions Per Round Have To Be A Number!");
+                    return;
+                }
+                if(Integer.parseInt(playerQuestionsPerRound.getText()) < 3||
+                        Integer.parseInt(playerQuestionsPerRound.getText()) > 9
+                ){
+                    JOptionPane.showMessageDialog(null,
+                            "Questions per round has to be between 3 and 9!");
+                    playerQuestionsPerRound.setText("3");
+                    return;
+                }
+
+                if(Integer.parseInt(playerRounds.getText()) < 1||
+                        Integer.parseInt(playerRounds.getText()) > 9
+                ){
+                    JOptionPane.showMessageDialog(null,
+                            "Rounds have to be between 1 and 9!");
+                    playerRounds.setText("3");
+                    return;
+                }
+
+//                Controller.writeToProperties(playerName.getText(),
+//                        playerRounds.getText(), playerQuestionsPerRound.getText());
+                settingsWindow.close();
+//                Controller.readProperties();
+
+
+            }
         });
     }
     public static void readProperties() {
@@ -212,9 +218,10 @@ public class LoginWindowController {
     }
 
     @FXML
-    void changeSceneToIngameScene(ActionEvent event) throws Exception {
-        //This changes scene to the ingameScene
-        GUI_Control.changeScene(GUI_Control.getIngameScene());
+    void notifyReady(ActionEvent event) throws Exception {
+        progress.setVisible(true);
+        waitingforPlayerlabel.setVisible(true);
+        b1.setVisible(false);
         clientConnection.sendObjectToServer(new ClientRequest(ClientRequest.TYPE.NOTIFY_READY, null));
     }
 
@@ -235,12 +242,17 @@ public class LoginWindowController {
 
     @FXML
     public void ConnectToServer(ActionEvent actionEvent) {
+
+        if (usernameField.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Du måste ange ett användarnamn!", "Felmeddelande", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
         initializeConnection(usernameField.getText());
-
-        label.setVisible(true);
-        progress.setVisible(true);
         label.setText("Connected as " + usernameField.getText());
+        label.setVisible(true);
 
+        
         b1.setVisible(true);
     }
 }

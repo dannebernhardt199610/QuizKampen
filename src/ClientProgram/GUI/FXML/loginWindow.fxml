@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Blend?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.effect.Reflection?>
@@ -19,9 +20,9 @@
 
 <VBox fx:id="firstwindow" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientProgram.GUI.Controllers.LoginWindowController">
     <children>
-        <AnchorPane accessibleRole="TEXT_AREA" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" style="-fx-background-color: #7FDBFF;">
+        <AnchorPane accessibleRole="TEXT_AREA" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" style="-fx-background-color: #7FDBFF;">
             <children>
-                <TextField fx:id="usernameField" blendMode="HARD_LIGHT" layoutX="3.0" layoutY="380.0" onAction="#writeToProperties" prefHeight="71.0" prefWidth="598.0" promptText="USERNAME:">
+                <TextField fx:id="usernameField" blendMode="HARD_LIGHT" layoutX="3.0" layoutY="380.0" onAction="#ConnectToServer" prefHeight="71.0" prefWidth="598.0" promptText="USERNAME:">
                     <font>
                         <Font name="System Bold" size="27.0" />
                     </font>
@@ -45,14 +46,14 @@
                         <Blend />
                     </effect>
                 </Text>
-                <Label fx:id="label" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="625.0" prefHeight="90.0" prefWidth="800.0" textAlignment="CENTER" textFill="WHITE" underline="true" visible="false">
+                <Label fx:id="label" alignment="CENTER" blendMode="LIGHTEN" contentDisplay="CENTER" layoutX="-8.0" layoutY="571.0" prefHeight="90.0" prefWidth="800.0" textAlignment="CENTER" textFill="WHITE" underline="true" visible="false" wrapText="true">
                     <font>
                         <Font name="Monospaced Bold" size="29.0" />
                     </font>
                     <cursor>
                         <Cursor fx:constant="WAIT" />
                     </cursor></Label>
-                <Button fx:id="b1" layoutY="729.0" mnemonicParsing="false" onAction="#changeSceneToIngameScene" prefHeight="71.0" prefWidth="800.0" style="-fx-background-color: WHITE;" text="START" visible="false">
+                <Button fx:id="b1" layoutY="729.0" mnemonicParsing="false" onAction="#notifyReady" prefHeight="71.0" prefWidth="800.0" style="-fx-background-color: WHITE;" text="START" visible="false">
                     <font>
                         <Font name="System Bold" size="33.0" />
                     </font>
@@ -62,10 +63,13 @@
                     <effect>
                         <InnerShadow />
                     </effect></Button>
-                <TextArea fx:id="howtoPlayTextARea" blendMode="SCREEN" editable="false" layoutX="6.0" layoutY="166.0" mouseTransparent="true" prefHeight="129.0" prefWidth="340.0" promptText="RULES:" text="1v1 match.&#10;Amount of questions:&#10;Max points:&#10;Ingame chat.&#10;" visible="false">
+                <TextArea fx:id="howtoPlayTextARea" blendMode="COLOR_BURN" editable="false" layoutX="6.0" layoutY="172.0" mouseTransparent="true" prefHeight="129.0" prefWidth="340.0" promptText="RULES:" text="Frågesport!&#10;&#10;Möjlighet att spela 1vs1 eller vs flera!&#10;&#10;GL :)" visible="false" wrapText="true">
                     <font>
                         <Font name="Arial Bold Italic" size="16.0" />
                     </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
                 </TextArea>
                 <Label layoutX="6.0" layoutY="332.0" prefHeight="48.0" prefWidth="269.0" text="Enter username below:" textFill="WHITE">
                     <font>
@@ -83,6 +87,9 @@
                     <font>
                         <Font name="Monospaced Regular" size="15.0" />
                     </font>
+                    <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                    </cursor>
                 </Button>
                 <Button fx:id="howtoPlaybutton" blendMode="MULTIPLY" layoutX="111.0" layoutY="143.0" mnemonicParsing="false" onAction="#howtoPlay" prefHeight="25.0" prefWidth="129.0" style="-fx-background-color: #7FDBFF;" text="How to play" textFill="#000000b0">
                     <font>
@@ -91,8 +98,11 @@
                     <effect>
                         <InnerShadow />
                     </effect>
+                    <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                    </cursor>
                 </Button>
-                <ProgressIndicator fx:id="progress" layoutX="175.0" layoutY="644.0" visible="false">
+                <ProgressIndicator fx:id="progress" layoutX="131.0" layoutY="666.0" prefHeight="53.0" prefWidth="58.0" visible="false">
                     <opaqueInsets>
                         <Insets />
                     </opaqueInsets>
@@ -110,27 +120,18 @@
                     <effect>
                         <InnerShadow color="#0a0a0a" />
                     </effect>
+                    <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                    </cursor>
                 </Button>
-                <TextField fx:id="rounds" blendMode="HARD_LIGHT" layoutX="550.0" layoutY="172.0" prefHeight="25.0" prefWidth="129.0" style="-fx-background-color: #7FDBFF;" visible="false">
-                    <effect>
-                        <InnerShadow />
-                    </effect>
-                </TextField>
-                <Label fx:id="roundsLabel" alignment="CENTER_RIGHT" layoutX="475.0" layoutY="175.0" prefHeight="19.0" prefWidth="73.0" text="Rounds:" visible="false">
+                <Label fx:id="waitingforPlayerlabel" alignment="CENTER" layoutX="157.0" layoutY="652.0" prefHeight="80.0" prefWidth="489.0" text="Waiting for other player" textAlignment="JUSTIFY" textFill="WHITE" visible="false" wrapText="true">
                     <font>
-                        <Font name="Monospaced Regular" size="16.0" />
+                        <Font name="Monospaced Bold" size="28.0" />
                     </font>
-                </Label>
-                <Label fx:id="questionsPerRoundLabel" alignment="CENTER_RIGHT" layoutX="389.0" layoutY="200.0" prefHeight="25.0" prefWidth="152.0" text="Questions per round:" visible="false">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="questionsPerRound" blendMode="HARD_LIGHT" layoutX="550.0" layoutY="197.0" prefHeight="25.0" prefWidth="129.0" style="-fx-background-color: #7FDBFF;" visible="false">
                     <effect>
-                        <InnerShadow />
+                        <Glow />
                     </effect>
-                </TextField>
+                </Label>
             </children>
             <effect>
                 <Blend />
