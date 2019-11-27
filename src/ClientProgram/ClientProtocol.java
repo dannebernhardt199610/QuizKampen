@@ -33,9 +33,6 @@ public class ClientProtocol {
                         GUI_Control.getScoreBoardController().scoreboardArea.appendText(((ServerResponse) objectFromServer).message);
                         GUI_Control.changeScene(GUI_Control.getScoreBoardScene());
                     });
-
-
-                    //GUI_Control.changeScene(GUI_Control.getScoreBoardScene());
                     break;
 
             }
