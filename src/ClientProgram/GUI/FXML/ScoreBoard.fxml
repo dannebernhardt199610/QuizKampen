@@ -1,17 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientProgram.GUI.Controllers.ScoreBoardController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #7FDBFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientProgram.GUI.Controllers.ScoreBoardController">
    <children>
-      <TextArea fx:id="scoreboardArea" editable="false" layoutX="22.0" layoutY="145.0" prefHeight="428.0" prefWidth="755.0" />
-      <Label fx:id="titleLabel" alignment="CENTER" layoutX="298.0" layoutY="67.0" prefHeight="46.0" prefWidth="204.0" text="Poängställning" textAlignment="CENTER">
+      <TextArea fx:id="scoreboardArea" blendMode="MULTIPLY" editable="false" layoutX="22.0" layoutY="145.0" prefHeight="322.0" prefWidth="755.0" wrapText="true">
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
          <font>
-            <Font size="30.0" />
+            <Font name="Arial Black" size="21.0" />
          </font>
+         <effect>
+            <InnerShadow color="#e4dede" />
+         </effect></TextArea>
+      <Label fx:id="titleLabel" alignment="CENTER" layoutX="186.0" layoutY="67.0" prefHeight="79.0" prefWidth="443.0" text="Poängställning" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="44.0" />
+         </font>
+         <effect>
+            <Bloom>
+               <input>
+                  <Reflection />
+               </input>
+            </Bloom>
+         </effect>
       </Label>
+      <Line endX="654.0" layoutX="122.0" layoutY="241.0" opacity="0.53" startX="-100.0" />
    </children>
 </AnchorPane>

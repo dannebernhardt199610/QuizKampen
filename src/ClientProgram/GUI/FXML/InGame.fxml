@@ -16,7 +16,7 @@
    <children>
       <AnchorPane fx:id="question" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" style="-fx-background-color: #7FDBFF;">
          <children>
-            <Button fx:id="answer1" layoutX="14.0" layoutY="217.0" mnemonicParsing="false" onAction="#answerButton" prefHeight="79.0" prefWidth="376.0" style="-fx-background-color: #0074D9;" text="answer1" textFill="WHITE">
+            <Button fx:id="answer1" blendMode="HARD_LIGHT" layoutX="14.0" layoutY="217.0" mnemonicParsing="false" onAction="#answerButton" prefHeight="79.0" prefWidth="376.0" style="-fx-background-color: #0074D9;" text="answer1" textFill="WHITE">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
@@ -27,7 +27,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="answer2" layoutX="402.0" layoutY="217.0" mnemonicParsing="false" onAction="#answerButton" prefHeight="79.0" prefWidth="386.0" style="-fx-background-color: #0074D9;" text="answer2" textFill="WHITE">
+            <Button fx:id="answer2" blendMode="HARD_LIGHT" layoutX="402.0" layoutY="217.0" mnemonicParsing="false" onAction="#answerButton" prefHeight="79.0" prefWidth="386.0" style="-fx-background-color: #0074D9;" text="answer2" textFill="WHITE">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
@@ -38,7 +38,7 @@
                   <InnerShadow />
                </effect>
             </Button>
-            <Button fx:id="answer3" layoutX="14.0" layoutY="348.0" mnemonicParsing="false" onAction="#answerButton" prefHeight="79.0" prefWidth="376.0" style="-fx-background-color: #0074D9;" text="answer3" textFill="WHITE">
+            <Button fx:id="answer3" blendMode="HARD_LIGHT" layoutX="14.0" layoutY="348.0" mnemonicParsing="false" onAction="#answerButton" prefHeight="79.0" prefWidth="376.0" style="-fx-background-color: #0074D9;" text="answer3" textFill="WHITE">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
@@ -49,7 +49,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="answer4" layoutX="402.0" layoutY="348.0" mnemonicParsing="false" onAction="#answerButton" prefHeight="79.0" prefWidth="385.0" style="-fx-background-color: #0074D9;" text="answer4" textFill="WHITE">
+            <Button fx:id="answer4" blendMode="HARD_LIGHT" layoutX="402.0" layoutY="348.0" mnemonicParsing="false" onAction="#answerButton" prefHeight="79.0" prefWidth="385.0" style="-fx-background-color: #0074D9;" text="answer4" textFill="WHITE">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
@@ -68,9 +68,9 @@
                   <InnerShadow choke="0.26" color="#fcf8f8" height="77.34" radius="36.6875" width="71.41" />
                </effect>
             </Label>
-            <TextArea fx:id="questionArea" editable="false" layoutX="2.0" layoutY="43.0" prefHeight="173.0" prefWidth="800.0" promptText="QUESTION" wrapText="true">
+            <TextArea fx:id="questionArea" editable="false" layoutX="2.0" layoutY="43.0" prefHeight="173.0" prefWidth="794.0" promptText="QUESTION" wrapText="true">
                <font>
-                  <Font name="Arial" size="25.0" />
+                  <Font name="Monospaced Bold" size="37.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="NONE" />
@@ -107,7 +107,7 @@
                   <Font name="Monospaced Regular" size="19.0" />
                </font>
             </Button>
-            <Button fx:id="sendmsgButton" blendMode="OVERLAY" layoutX="709.0" layoutY="773.0" mnemonicParsing="false" onAction="#sendMsg" opacity="0.74" prefHeight="79.0" prefWidth="114.0" text="Send" textFill="#070707" visible="false">
+            <Button fx:id="sendmsgButton" blendMode="OVERLAY" layoutX="699.0" layoutY="711.0" mnemonicParsing="false" onAction="#sendMsg" opacity="0.74" prefHeight="79.0" prefWidth="101.0" text="Send" textFill="#070707" visible="false">
                <font>
                   <Font name="Monospaced Regular" size="20.0" />
                </font>
@@ -115,12 +115,12 @@
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <TextField fx:id="msgTextField" layoutX="347.0" layoutY="765.0" prefHeight="88.0" prefWidth="362.0" promptText="Message" onAction="#sendMsg" visible="false">
+            <TextField fx:id="msgTextField" layoutX="370.0" layoutY="699.0" onAction="#sendMsg" prefHeight="96.0" prefWidth="340.0" promptText="Message" visible="false">
                <effect>
                   <InnerShadow choke="0.5" color="#7fdbff" height="62.7" radius="30.802500000000002" width="62.51" />
                </effect>
             </TextField>
-            <TextArea fx:id="chatwindowTextArea" editable="false" layoutX="341.0" layoutY="535.0" prefHeight="240.0" prefWidth="482.0" visible="false" wrapText="true">
+            <TextArea fx:id="chatwindowTextArea" editable="false" layoutX="363.0" layoutY="471.0" prefHeight="240.0" prefWidth="437.0" visible="false" wrapText="true">
                <effect>
                   <InnerShadow choke="0.68" color="#7fdbff" height="79.38" radius="36.455" width="68.44" />
                </effect>
