@@ -3,6 +3,7 @@ package ClientProgram.GUI.Controllers;
 import ClientProgram.ClientConnection;
 import ClientProgram.GUI.GUI_Control;
 import ClientProgram.GUI.Main;
+import Model.Question;
 import ServerUtilities.ClientRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,13 +23,12 @@ import java.util.List;
 
 public class IngameController{
     public Label categoryLabel;
-
-    int counter = 0;
-    String input = "";
+    public Label totalPointsLabel;
+    public Label currentRoundPointsLabel;
+    public Label totalPointsCountLabel;
 
     @FXML
     private AnchorPane question;
-
 
     @FXML
     public Button answer1;
@@ -51,27 +51,28 @@ public class IngameController{
     @FXML
     public TextArea questionArea;
 
-    @FXML
-    private ImageView imageView;
-
-    @FXML
-    private Button continueButton;
-
-
-    @FXML
-    private Button chatwindowButton;
 
     @FXML
     private Pane chatpane;
 
     @FXML
-    public TextArea chatWindow;
+    private Button sendmsgButton;
 
     @FXML
-    public Button sendmsgButton;
+    private Label showTotalScoreLabel;
 
     @FXML
-    public TextField msgTextField;
+    private Button chatWindowButton;
+
+    @FXML
+    public TextArea chatwindowTextArea;
+
+    @FXML
+    private TextField msgTextField;
+
+    public Question currentQuestion;
+    int currentRoundPoints = 0;
+    int totalPoints = 0;
 
 
     @FXML
@@ -91,24 +92,11 @@ public class IngameController{
                 messageToServer = msgTextField.getText();
                 msgTextField.setText("");
 
-                chatWindow.appendText("[Du] " + messageToServer + "\n");
+                chatwindowTextArea.appendText("[Du] " + messageToServer + "\n");
                 ClientRequest messageRequest = new ClientRequest(ClientRequest.TYPE.MESSAGE_TO_ALL, messageToServer);
                 Main.clientConnection.sendObjectToServer(messageRequest);
             }
         }
-
-    @FXML
-    void openchatWindow(ActionEvent event) {
-        chatpane.setVisible(true);
-        chatWindow.setVisible(true);
-        sendmsgButton.setVisible(true);
-        msgTextField.setVisible(true);
-
-    }
-
-    public void initialize() {
-        //If we want to do stuff right after the scene is loaded
-    }
 
     public void answerButton(ActionEvent actionEvent) {
         List<Button> answerButtons = new ArrayList<>();
@@ -117,14 +105,62 @@ public class IngameController{
         answerButtons.add(answer3);
         answerButtons.add(answer4);
 
+        for (Button button: answerButtons) {
+            button.setDisable(true);
+        }
 
         Button clickedButton = (Button) actionEvent.getSource();
 
+        if(clickedButton.getText().equals(currentQuestion.getCorrectAnswer())){
+            clickedButton.setStyle("-fx-background-color: GREEN");
+            currentRoundPoints++;
+            currentRoundPointsLabel.setText(Integer.toString(currentRoundPoints));
+            totalPoints++;
+            totalPointsCountLabel.setText(Integer.toString(totalPoints));
+        }
+        else {
+            clickedButton.setStyle("-fx-background-color: RED");
+        }
+
         String answer = clickedButton.getText();
+
+
+
+
+
+
         Main.clientConnection.sendObjectToServer(new ClientRequest(ClientRequest.TYPE.SUBMIT_ANSWER, answer));
+
+
 
         //disable buttons, preferably pretty :P
         //Set color for buttons
+    }
+
+
+    @FXML
+    void show() {
+        chatwindowTextArea.setVisible(true);
+        sendmsgButton.setVisible(true);
+        msgTextField.setVisible(true);
+    }
+    @FXML
+    void hide(){
+        chatwindowTextArea.setVisible(false);
+        sendmsgButton.setVisible(false);
+        msgTextField.setVisible(false);
+    }
+    @FXML
+    void openchatWindow(ActionEvent event) {
+
+        if (chatWindowButton.getText().equalsIgnoreCase("chatWindow")) {
+            show();
+            chatWindowButton.setText("Close");
+        }else if (chatWindowButton.getText().equalsIgnoreCase("Close")){
+            hide();
+            chatWindowButton.setText("ChatWindow");
+        }
+
     }
 }
 

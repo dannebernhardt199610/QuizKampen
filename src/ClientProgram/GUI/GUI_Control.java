@@ -14,7 +14,7 @@ public class GUI_Control {
 
     private static Stage currentStage; //Kopierar primary stage i Main
 
-    private static FXMLLoader ingameLoader = new FXMLLoader(GUI_Control.class.getResource("FXML/ingameeea.fxml"));
+    private static FXMLLoader ingameLoader = new FXMLLoader(GUI_Control.class.getResource("FXML/InGame.fxml"));
     private static Parent ingameParent;
     static { try { ingameParent = ingameLoader.load(); } catch (IOException e) { e.printStackTrace(); }}
     private static Scene ingameScene = new Scene(ingameParent);

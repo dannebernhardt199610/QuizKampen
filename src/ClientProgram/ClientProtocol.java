@@ -7,8 +7,10 @@ import Model.ScoreReport;
 import ServerUtilities.ServerResponse;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.scene.control.Button;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClientProtocol {
@@ -21,7 +23,7 @@ public class ClientProtocol {
             switch (((ServerResponse) objectFromServer).type){
                 //Hantera Server Responses
                 case MESSAGE_FROM_CLIENT:
-                    ingameController.chatWindow.appendText(((ServerResponse) objectFromServer).message + "\n");
+                    ingameController.chatwindowTextArea.appendText(((ServerResponse) objectFromServer).message + "\n");
                     break;
                 case NOTIFY_GAME_OVER:
                     //Switch to game over window
@@ -41,6 +43,7 @@ public class ClientProtocol {
             System.out.println("Object received as Question");
             Question question = (Question) objectFromServer;
 
+            GUI_Control.getIngameController().currentQuestion = question;
             System.out.println(question.getQuestion());
 
             //Denna lambda Platform.runLater gör att vi inte bråkar med GUI-thread så synkar det snyggt
@@ -50,10 +53,19 @@ public class ClientProtocol {
                 //Visa kategori i rätt label
                 ingameController.categoryLabel.setText(question.getGenre());
                 String[] answers = question.getAnswers();
-                ingameController.answer1.setText(answers[0]);
-                ingameController.answer2.setText(answers[1]);
-                ingameController.answer3.setText(answers[2]);
-                ingameController.answer4.setText(answers[3]);
+
+                List<Button> buttonList = new ArrayList<>();
+                buttonList.add(ingameController.answer1);
+                buttonList.add(ingameController.answer2);
+                buttonList.add(ingameController.answer3);
+                buttonList.add(ingameController.answer4);
+
+                for (int i = 0; i < buttonList.size(); i++) {
+                    buttonList.get(i).setText(answers[i]);
+                    buttonList.get(i).setDisable(false);
+                    buttonList.get(i).setStyle("-fx-background-color:  #0074D9");
+                }
+
             });
         }
         else if(objectFromServer instanceof List<?>){

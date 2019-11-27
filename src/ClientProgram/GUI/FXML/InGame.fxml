@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.effect.Reflection?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientProgram.GUI.Controllers.IngameController">
+   <children>
+      <AnchorPane fx:id="question" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" style="-fx-background-color: #7FDBFF;">
+         <children>
+            <Button fx:id="answer1" layoutX="14.0" layoutY="217.0" mnemonicParsing="false" onAction="#answerButton" prefHeight="79.0" prefWidth="376.0" style="-fx-background-color: #0074D9;" text="answer1" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="answer2" layoutX="402.0" layoutY="217.0" mnemonicParsing="false" onAction="#answerButton" prefHeight="79.0" prefWidth="386.0" style="-fx-background-color: #0074D9;" text="answer2" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <InnerShadow />
+               </effect>
+            </Button>
+            <Button fx:id="answer3" layoutX="14.0" layoutY="348.0" mnemonicParsing="false" onAction="#answerButton" prefHeight="79.0" prefWidth="376.0" style="-fx-background-color: #0074D9;" text="answer3" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="answer4" layoutX="402.0" layoutY="348.0" mnemonicParsing="false" onAction="#answerButton" prefHeight="79.0" prefWidth="385.0" style="-fx-background-color: #0074D9;" text="answer4" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Label fx:id="pointslabel" layoutX="3.0" layoutY="530.0" prefHeight="103.0" prefWidth="301.0" text="Poäng denna runda:" textFill="#fffafa">
+               <font>
+                  <Font name="Bell MT Bold" size="33.0" />
+               </font>
+               <effect>
+                  <InnerShadow choke="0.26" color="#fcf8f8" height="77.34" radius="36.6875" width="71.41" />
+               </effect>
+            </Label>
+            <TextArea fx:id="questionArea" editable="false" layoutX="2.0" layoutY="43.0" prefHeight="173.0" prefWidth="800.0" promptText="QUESTION" wrapText="true">
+               <font>
+                  <Font name="Arial" size="25.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="NONE" />
+               </cursor>
+               <effect>
+                  <InnerShadow choke="0.42" color="#7fdbff" height="101.06" radius="50.769999999999996" width="104.02">
+                     <input>
+                        <Glow />
+                     </input>
+                  </InnerShadow>
+               </effect>
+            </TextArea>
+            <Label fx:id="currentRoundPointsLabel" alignment="CENTER" layoutX="276.0" layoutY="546.0" prefHeight="72.0" prefWidth="87.0" text="0" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold Italic" size="33.0" />
+               </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
+            </Label>
+            <Label fx:id="categoryLabel" alignment="CENTER" layoutX="269.0" prefHeight="42.0" prefWidth="287.0" style="-fx-background-color: #39CCCC;" text="Kategori av fråga" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <effect>
+                  <Reflection />
+               </effect>
+            </Label>
+            <Button fx:id="chatWindowButton" blendMode="OVERLAY" layoutX="2.0" layoutY="674.0" mnemonicParsing="false" onAction="#openchatWindow" prefHeight="59.0" prefWidth="146.0" text="ChatWindow">
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+               <font>
+                  <Font name="Monospaced Regular" size="19.0" />
+               </font>
+            </Button>
+            <Button fx:id="sendmsgButton" blendMode="OVERLAY" layoutX="709.0" layoutY="773.0" mnemonicParsing="false" onAction="#sendMsg" opacity="0.74" prefHeight="79.0" prefWidth="114.0" text="Send" textFill="#070707" visible="false">
+               <font>
+                  <Font name="Monospaced Regular" size="20.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </Button>
+            <TextField fx:id="msgTextField" layoutX="347.0" layoutY="765.0" prefHeight="88.0" prefWidth="362.0" promptText="Message" visible="false">
+               <effect>
+                  <InnerShadow choke="0.5" color="#7fdbff" height="62.7" radius="30.802500000000002" width="62.51" />
+               </effect>
+            </TextField>
+            <TextArea fx:id="chatwindowTextArea" editable="false" layoutX="341.0" layoutY="535.0" prefHeight="240.0" prefWidth="482.0" visible="false" wrapText="true">
+               <effect>
+                  <InnerShadow choke="0.68" color="#7fdbff" height="79.38" radius="36.455" width="68.44" />
+               </effect>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextArea>
+            <Label fx:id="totalPointsLabel" layoutX="2.0" layoutY="443.0" prefHeight="103.0" prefWidth="200.0" text="Total poäng:" textFill="WHITE">
+               <font>
+                  <Font name="Bell MT Bold" size="33.0" />
+               </font>
+               <effect>
+                  <InnerShadow choke="0.26" color="#fcf8f8" height="77.34" radius="36.6875" width="71.41" />
+               </effect>
+            </Label>
+            <Label fx:id="totalPointsCountLabel" alignment="CENTER" layoutX="269.0" layoutY="465.0" prefHeight="59.0" prefWidth="101.0" text="0">
+               <font>
+                  <Font name="System Bold Italic" size="33.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</HBox>

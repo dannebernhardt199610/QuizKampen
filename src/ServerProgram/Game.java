@@ -112,6 +112,12 @@ public class Game {
                 for (PlayerServer pServer : playerServers) {
                     pServer.player.setHasAnswered(false);
                 }
+                //Sleep så att den sista som svarat ser om svaret var rätt eller fel
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 currentQuestionindex++;
 
                 if(currentQuestionindex < questionsPerRound){
@@ -120,7 +126,6 @@ public class Game {
                 else {
                     //Förbered för nästa runda
                     currentRoundindex++;
-
                     currentGenreIndex++;
                     currentQuestionindex = 0;
 
@@ -143,7 +148,7 @@ public class Game {
                     }
 
                     try {
-                        Thread.sleep(3000);
+                        Thread.sleep(4000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
