@@ -1,20 +1,22 @@
-package Databas;
+package Model;
 
 import java.io.Serializable;
 
 public class Question implements Serializable {
 
-    public static long serialVersionUID = 1L;
+    static final long serialVersionUID = 1L;
 
     String question;
-    Answer[] answers;
+    String[] answers;
     String correctAnswer;
+    String genre;
 
-    public Question(String question, Answer[] answers){
+    public Question(String question, String[] answers, String genre){
 
         this.question = question;
         this.answers = answers;
-        this.correctAnswer = this.answers[0].getClaim();
+        this.correctAnswer = answers[0];
+        this.genre = genre;
     }
 
     public String toString(){
@@ -23,7 +25,7 @@ public class Question implements Serializable {
 
         for (int i = 0; i < 4; i++) {
 
-            questionAndAlternatives += this.getAnswers()[i].getClaim() + "\n";
+            questionAndAlternatives += this.getAnswers()[i] + "\n";
         }
 
         return questionAndAlternatives;
@@ -32,17 +34,21 @@ public class Question implements Serializable {
 
     public void shuffleAnswers(){
 
-        Answer[] shuffled = this.getAnswers();
+        String[] shuffled = this.getAnswers();
 
-        Answer tempAnswer;
+        String tempAnswer;
 
         for (int i = 0; i < 100; i++) {
 
             byte randomOne = (byte)(Math.random()*3);
 
+            System.out.println(randomOne);
+
             tempAnswer = shuffled[randomOne];
 
-            byte randomTwo = (byte)(Math.random()*3);
+            byte randomTwo = (byte)(Math.round(Math.random()*3));
+
+            System.out.println(randomTwo);
 
             shuffled[randomOne] = shuffled[randomTwo];
 
@@ -53,23 +59,22 @@ public class Question implements Serializable {
         this.setAnswers(shuffled);
     }
 
-    public String getCorrectAnswer() {
-        return correctAnswer;
-    }
-
     public String getQuestion() {
         return question;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public Answer[] getAnswers() {
+    public String[] getAnswers() {
         return answers;
     }
 
-    public void setAnswers(Answer[] answers) {
+    public String getCorrectAnswer() { return correctAnswer; }
+
+    public String getGenre() { return genre; }
+
+    public void setAnswers(String[] answers) {
         this.answers = answers;
     }
+
+
+
 }

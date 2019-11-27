@@ -1,7 +1,7 @@
 package ServerProgram;
 
-import Databas.Question;
-import Databas.QuestionDatabase;
+import Model.Question;
+import ServerProgram.Databas.QuestionDatabase;
 import Model.Player;
 import ServerUtilities.ClientRequest;
 import Model.ScoreReport;
@@ -28,7 +28,8 @@ public class Game {
     Question currentQuestion;
 
     List<PlayerServer> playerServers = new ArrayList<>();
-    List<Question> questions = questionDatabase.getGameQuestions();
+    ArrayList[] genres = questionDatabase.getGenres();
+    List<Question> questionList;
 
     //Initialize questions
     public Game() {
@@ -39,6 +40,9 @@ public class Game {
             questionsPerRound = Integer.parseInt(gameConfigProperty.getProperty("questionsPerRound"));
             nrOfRounds = Integer.parseInt(gameConfigProperty.getProperty("nrOfRounds"));
             nrOfPlayers = Integer.parseInt(gameConfigProperty.getProperty("nrOfPlayers"));
+
+            //Lägg frågelistorna i slumpmässig ordning
+            questionList = genres[0];
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -93,7 +97,7 @@ public class Game {
             case SUBMIT_ANSWER:
                 player.setHasAnswered(true);
                 //Check answer!!!
-               if(objectFromClient.message.equals(questions.get(currentQuestionindex).getCorrectAnswer())){
+               if(objectFromClient.message.equals(questionList.get(currentQuestionindex).getCorrectAnswer())){
                     player.getScoreReport().addPointsToCurrentRound(currentRoundindex);
                }
 
@@ -109,7 +113,7 @@ public class Game {
                 }
                 currentQuestionindex++;
                 if(currentQuestionindex < questionsPerRound){
-                    sendToAllPlayers(questions.get(currentQuestionindex));
+                    sendToAllPlayers(questionList.get(currentQuestionindex));
                 }
                 else {
                     currentRoundindex++;
@@ -148,7 +152,9 @@ public class Game {
                             return;
                     }
                     //Hit kommer vi bara om alla spelare isReady == true
-                    sendToAllPlayers(questions.get(currentQuestionindex));
+
+
+                    sendToAllPlayers(questionList.get(currentQuestionindex));
                 }
                 break;
         }
