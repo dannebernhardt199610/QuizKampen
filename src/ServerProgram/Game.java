@@ -99,7 +99,7 @@ public class Game {
                 player.setHasAnswered(true);
                 //Check answer!!!
                if(objectFromClient.message.equals(questionList.get(currentQuestionindex).getCorrectAnswer())){
-                    player.getScoreReport().addPointToCurrentRound(currentRoundindex);
+                    player.getScoreReport().addPointToCurrentRound();
                }
 
 
@@ -120,20 +120,26 @@ public class Game {
                 else {
                     //Förbered för nästa runda
                     currentRoundindex++;
+
                     currentGenreIndex++;
                     currentQuestionindex = 0;
 
                     //Visa poängställning
                     List<ScoreReport> scoreReports = new ArrayList<>();
                     for (PlayerServer pServer: playerServers) {
+                        pServer.getPlayer().getScoreReport().setCurrentRoundIndex(currentRoundindex);
                         scoreReports.add(pServer.getPlayer().getScoreReport());
                         System.out.println(pServer.getPlayer().getScoreReport());
                     }
 
-
+                    String scoreReportsString = "";
+                    for(ScoreReport sr:scoreReports) {
+                        scoreReportsString += sr.toString();
+                    }
 
                     for (PlayerServer pServer: playerServers) {
-                        pServer.sendListToClient(scoreReports);
+                        //pServer.sendListToClient(scoreReports);
+                        pServer.sendObjectToClient(new ServerResponse(ServerResponse.TYPE.SCORE_REPORT, scoreReportsString));
                     }
 
                     try {

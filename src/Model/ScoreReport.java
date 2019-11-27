@@ -21,49 +21,54 @@ public class ScoreReport implements Serializable {
         this.roundScores = new int[numberOfRounds];
     }
 
-    public ScoreReport(int totalScore,  int[] roundScores, int currentRoundIndex) {
+    public ScoreReport(int totalScore,  int[] roundScores) {
         this.totalScore = totalScore;
         this.roundScores = roundScores;
-        this.currentRoundIndex = currentRoundIndex;
     }
 
-    public void addPointToCurrentRound(int currentRoundIndex){
-        this.currentRoundIndex = currentRoundIndex;
+    public synchronized void addPointToCurrentRound(){
         roundScores[currentRoundIndex]++;
         totalScore++;
     }
 
 
-    public int getTotalScore() {
+    public synchronized int getTotalScore() {
         return this.totalScore;
     }
 
-    public void setTotalScore(int totalScore) {
+    public synchronized void setTotalScore(int totalScore) {
         this.totalScore = totalScore;
     }
 
-    public int[] getRoundScores() {
+    public synchronized int[] getRoundScores() {
         return this.roundScores;
     }
 
-    public void setRoundScores(int[] roundScores) {
+    public synchronized void setRoundScores(int[] roundScores) {
         this.roundScores = roundScores;
     }
 
-    public String getPlayerName() {
+    public synchronized String getPlayerName() {
         return playerName;
     }
 
-    public void setPlayerName(String playerName) {
+    public synchronized void setPlayerName(String playerName) {
         this.playerName = playerName;
     }
 
+    public int getCurrentRoundIndex() {
+        return currentRoundIndex;
+    }
+
+    public void setCurrentRoundIndex(int currentRoundIndex) {
+        this.currentRoundIndex = currentRoundIndex;
+    }
 
     @Override
     public synchronized String toString() {
         StringBuilder scoreReportText = new StringBuilder("Spelare: ");
         scoreReportText.append(this.playerName).append("\t").append("Totalpoäng: ").append(this.totalScore).append("\n");
-        for (int i = 0; i < this.currentRoundIndex + 1; i++) {
+        for (int i = 0; i < this.currentRoundIndex; i++) {
             System.out.println("Round index " + i);
             scoreReportText.append("Runda ").append(i + 1).append(": ").append(roundScores[i]).append("\t");
         }

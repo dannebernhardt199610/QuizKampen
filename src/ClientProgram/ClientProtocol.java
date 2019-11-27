@@ -26,6 +26,18 @@ public class ClientProtocol {
                 case NOTIFY_GAME_OVER:
                     //Switch to game over window
                     break;
+                case SCORE_REPORT:
+                    System.out.println(((ServerResponse) objectFromServer).message);
+                    Platform.runLater(()->{
+                        GUI_Control.getScoreBoardController().scoreboardArea.setText("");
+                        GUI_Control.getScoreBoardController().scoreboardArea.appendText(((ServerResponse) objectFromServer).message);
+                        GUI_Control.changeScene(GUI_Control.getScoreBoardScene());
+                    });
+
+
+                    //GUI_Control.changeScene(GUI_Control.getScoreBoardScene());
+                    break;
+
             }
         }
         else if (objectFromServer instanceof Question){
