@@ -1,4 +1,4 @@
-package ClientProgram.GUI;
+package ClientProgram.GUI.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,7 +27,7 @@ public class ChooseSubjectController {
 
     @FXML
     void bluebutton(ActionEvent event) throws Exception{
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("ingameeea.fxml"));
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("FXML/ingameeea.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(tableViewScene);

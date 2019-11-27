@@ -50,8 +50,18 @@ public class PlayerServer implements Runnable{
 
     public void sendObjectToClient(Object objectToClient){
         try {
+            //out.reset();
             out.writeObject(objectToClient);
             out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendListToClient(Object objectToClient){
+        try {
+            out.reset();
+            out.writeObject(objectToClient);
         } catch (IOException e) {
             e.printStackTrace();
         }

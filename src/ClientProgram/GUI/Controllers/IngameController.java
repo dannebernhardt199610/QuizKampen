@@ -1,6 +1,8 @@
-package ClientProgram.GUI;
+package ClientProgram.GUI.Controllers;
 
 import ClientProgram.ClientConnection;
+import ClientProgram.GUI.GUI_Control;
+import ClientProgram.GUI.Main;
 import ServerUtilities.ClientRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

@@ -21,9 +21,9 @@ public class Game {
     int nrOfRounds;
     int nrOfPlayers;
 
-    int currentRoundindex = 0;
-    int currentQuestionindex = 0;
-    int currentGenreIndex = 0;
+    private int currentRoundindex = 0;
+    private int currentQuestionindex = 0;
+    private int currentGenreIndex = 0;
 
     QuestionDatabase questionDatabase;
 
@@ -99,7 +99,7 @@ public class Game {
                 player.setHasAnswered(true);
                 //Check answer!!!
                if(objectFromClient.message.equals(questionList.get(currentQuestionindex).getCorrectAnswer())){
-                    player.getScoreReport().addPointsToCurrentRound(currentRoundindex);
+                    player.getScoreReport().addPointToCurrentRound(currentRoundindex);
                }
 
 
@@ -118,9 +118,29 @@ public class Game {
                     sendToAllPlayers(questionList.get(currentQuestionindex));
                 }
                 else {
+                    //Förbered för nästa runda
                     currentRoundindex++;
                     currentGenreIndex++;
                     currentQuestionindex = 0;
+
+                    //Visa poängställning
+                    List<ScoreReport> scoreReports = new ArrayList<>();
+                    for (PlayerServer pServer: playerServers) {
+                        scoreReports.add(pServer.getPlayer().getScoreReport());
+                        System.out.println(pServer.getPlayer().getScoreReport());
+                    }
+
+
+
+                    for (PlayerServer pServer: playerServers) {
+                        pServer.sendListToClient(scoreReports);
+                    }
+
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
                     if(currentGenreIndex >= genres.length){
                         currentGenreIndex = 0;

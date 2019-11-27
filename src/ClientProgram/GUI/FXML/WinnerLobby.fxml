@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Polyline?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="800.0" style="-fx-background-color: #7FDBFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientProgram.GUI.WinnerLobbyController">
+<AnchorPane prefHeight="800.0" prefWidth="800.0" style="-fx-background-color: #7FDBFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientProgram.GUI.Controllers.WinnerLobbyController">
    <children>
       <Label alignment="CENTER" blendMode="OVERLAY" layoutX="1.0" layoutY="109.0" prefHeight="59.0" prefWidth="434.0" text="Player 1" textFill="WHITE">
          <font>
