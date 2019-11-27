@@ -63,9 +63,9 @@
                     <effect>
                         <InnerShadow />
                     </effect></Button>
-                <TextArea fx:id="howtoPlayTextARea" blendMode="COLOR_BURN" editable="false" layoutX="6.0" layoutY="172.0" mouseTransparent="true" prefHeight="129.0" prefWidth="340.0" promptText="RULES:" text="Frågesport!&#10;&#10;Möjlighet att spela 1vs1 eller vs flera!&#10;&#10;GL :)" visible="false" wrapText="true">
+                <TextArea fx:id="howtoPlayTextARea" blendMode="MULTIPLY" editable="false" layoutX="6.0" layoutY="172.0" mouseTransparent="true" prefHeight="129.0" prefWidth="340.0" promptText="RULES:" text="Frågesport!&#10;&#10;Möjlighet att spela 1vs1 eller vs flera!&#10;&#10;GL :)" wrapText="true">
                     <font>
-                        <Font name="Arial Bold Italic" size="16.0" />
+                        <Font name="Arial" size="19.0" />
                     </font>
                     <cursor>
                         <Cursor fx:constant="HAND" />
