@@ -29,6 +29,8 @@ public class ClientProtocol {
             //Denna lambda Platform.runLater gör att vi inte bråkar med GUI-thread så synkar det snyggt
             Platform.runLater(() -> {
                 ingameController.questionArea.setText(question.getQuestion());
+                //Visa kategori i rätt label
+                ingameController.categoryLabel.setText("Kategori");
                 Answer[] answers = question.getAnswers();
                 ingameController.answer1.setText(answers[0].getClaim());
                 ingameController.answer2.setText(answers[1].getClaim());

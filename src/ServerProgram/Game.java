@@ -7,14 +7,19 @@ import ServerUtilities.ClientRequest;
 import Model.ScoreReport;
 import ServerUtilities.ServerResponse;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class Game {
 
-    int nrOfPlayers = 2; //LOAD FROM PROPERTIES!!
-    int nrOfRounds = 3; //LOAD FROM PROPERTIES!!
-    int questionsPerRound = 2; //LOAD FROM PROPERTIES!!
+    Properties gameConfigProperty = new Properties();
+
+    int questionsPerRound;
+    int nrOfRounds;
+    int nrOfPlayers;
 
     int currentRoundindex = 0;
     int currentQuestionindex = 0;
@@ -26,8 +31,18 @@ public class Game {
     List<Question> questions = questionDatabase.getGameQuestions();
 
     //Initialize questions
-    public Game(){
+    public Game() {
         System.out.println(getCurrentQuestion().toString());
+
+        try {
+            gameConfigProperty.load(new FileInputStream("src/ServerProgram/Resources/gameConfig.properties"));
+            questionsPerRound = Integer.parseInt(gameConfigProperty.getProperty("questionsPerRound"));
+            nrOfRounds = Integer.parseInt(gameConfigProperty.getProperty("nrOfRounds"));
+            nrOfPlayers = Integer.parseInt(gameConfigProperty.getProperty("nrOfPlayers"));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public Question getCurrentQuestion(){
@@ -42,13 +57,13 @@ public class Game {
 
 
     //Här hanterar vi vad som händer med de objekt vi tar emot, de object vi vill skicka till klienter osv
-    public synchronized void processObject(PlayerServer player, Object objectFromClient){
+    public synchronized void processObject(PlayerServer playerServer, Object objectFromClient){
 
         //Vi matar in vilken spelare som tagit emot objektet, samt objektet som tagits emot
         //Hantera objekt som kommer in från PlayerServer
 
         if(objectFromClient instanceof ClientRequest){
-            processRequest(player, (ClientRequest) objectFromClient);
+            processRequest(playerServer, (ClientRequest) objectFromClient);
         }
 
 
@@ -78,9 +93,10 @@ public class Game {
             case SUBMIT_ANSWER:
                 player.setHasAnswered(true);
                 //Check answer!!!
-//                if(objectFromClient.message.equals(questions.get(currentQuestionindex).getAnswers().)){
-//                    player.getScoreReport().addPointsToCurrentRound(currentRoundindex);
-//                }
+               if(objectFromClient.message.equals(questions.get(currentQuestionindex).getCorrectAnswer())){
+                    player.getScoreReport().addPointsToCurrentRound(currentRoundindex);
+               }
+
 
                 for (PlayerServer pServer : playerServers) {
                     if(!pServer.player.isHasAnswered()){
